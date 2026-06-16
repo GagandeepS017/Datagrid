@@ -1,10 +1,26 @@
 import { useState, useRef, useEffect } from 'react'
 import axios from 'axios'
 import ResultTable from './ResultTable'
+import QueryChart from './QueryChart'
 
-export default function QueryChat({ tableId }) {
+function downloadCsv(columns, rows, question) {
+  const esc = (v) => { const s = String(v ?? ''); return s.includes(',') || s.includes('"') ? `"${s.replace(/"/g, '""')}"` : s }
+  const lines = [columns.map(esc).join(','), ...rows.map(r => r.map(esc).join(','))]
+  const blob = new Blob([lines.join('\n')], { type: 'text/csv' })
+  const url = URL.createObjectURL(blob)
+  const a = document.createElement('a'); a.href = url; a.download = `query_${Date.now()}.csv`; a.click()
+  URL.revokeObjectURL(url)
+}
+
+async function downloadExcel(columns, rows) {
+  const { data } = await axios.post('/api/export/excel', { columns, rows, filename: `query_${Date.now()}` }, { responseType: 'blob' })
+  const url = URL.createObjectURL(data)
+  const a = document.createElement('a'); a.href = url; a.download = `query_${Date.now()}.xlsx`; a.click()
+  URL.revokeObjectURL(url)
+}
+
+export default function QueryChat({ tableId, history, setHistory }) {
   const [question, setQuestion] = useState('')
-  const [history, setHistory] = useState([])
   const [loading, setLoading] = useState(false)
   const bottomRef = useRef(null)
 
@@ -27,7 +43,7 @@ export default function QueryChat({ tableId }) {
       setHistory((h) =>
         h.map((item) =>
           item.id === pending.id
-            ? { ...item, status: 'ok', sql: data.sql, columns: data.columns, rows: data.rows, row_count: data.row_count }
+            ? { ...item, status: 'ok', sql: data.sql, columns: data.columns, rows: data.rows, row_count: data.row_count, chart: data.chart }
             : item
         )
       )
@@ -78,15 +94,24 @@ export default function QueryChat({ tableId }) {
 
             {item.status === 'ok' && (
               <div className="space-y-2">
+                <QueryChart chart={item.chart} columns={item.columns} rows={item.rows} />
                 <ResultTable columns={item.columns} rows={item.rows} />
-                <details className="group">
-                  <summary className="text-xs text-slate-400 cursor-pointer hover:text-slate-600 select-none">
-                    View SQL
-                  </summary>
-                  <pre className="mt-1 text-xs bg-slate-900 text-slate-200 rounded-lg p-3 overflow-x-auto">
-                    {item.sql}
-                  </pre>
-                </details>
+                <div className="flex items-center gap-3">
+                  <button onClick={() => downloadCsv(item.columns, item.rows)} className="text-xs text-slate-400 hover:text-slate-700 transition-colors flex items-center gap-1">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="w-3.5 h-3.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    CSV
+                  </button>
+                  <button onClick={() => downloadExcel(item.columns, item.rows)} className="text-xs text-slate-400 hover:text-slate-700 transition-colors flex items-center gap-1">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="w-3.5 h-3.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    Excel
+                  </button>
+                  <details className="group inline">
+                    <summary className="text-xs text-slate-400 cursor-pointer hover:text-slate-600 select-none list-none">SQL ▾</summary>
+                    <pre className="mt-1 text-xs bg-slate-900 text-slate-200 rounded-lg p-3 overflow-x-auto">
+                      {item.sql}
+                    </pre>
+                  </details>
+                </div>
               </div>
             )}
           </div>

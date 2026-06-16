@@ -231,7 +231,10 @@ def profile_dataframe(df: pd.DataFrame) -> dict:
         "outliers_flagged": total_flags,
     }
 
-    insights = _claude_insights(summary, abnormal, strong_corr)
+    try:
+        insights = _claude_insights(summary, abnormal, strong_corr)
+    except Exception:
+        insights = {"excellences": [], "major_issues": [], "fixes": []}
 
     return {
         "summary":              summary,

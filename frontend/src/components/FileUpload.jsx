@@ -8,10 +8,13 @@ export default function FileUpload({ onUploadSuccess }) {
   const [error, setError]       = useState(null)
   const inputRef = useRef(null)
 
+  const ACCEPTED_EXTS = ['.csv', '.xlsx', '.xls', '.json', '.png', '.jpg', '.jpeg', '.webp', '.gif']
+
   const handleFile = async (file) => {
     if (!file) return
-    if (!file.name.toLowerCase().endsWith('.csv')) {
-      setError('Only CSV files are supported.')
+    const ext = file.name.toLowerCase().match(/\.[^.]+$/)?.[0] ?? ''
+    if (!ACCEPTED_EXTS.includes(ext)) {
+      setError(`Unsupported file type "${ext}". Accepted: CSV, Excel, JSON, PNG, JPG, WEBP.`)
       return
     }
     setError(null)
@@ -99,7 +102,7 @@ export default function FileUpload({ onUploadSuccess }) {
                 <input
                   ref={inputRef}
                   type="file"
-                  accept=".csv"
+                  accept=".csv,.xlsx,.xls,.json,.png,.jpg,.jpeg,.webp,.gif"
                   className="hidden"
                   onChange={(e) => handleFile(e.target.files[0])}
                 />
@@ -123,13 +126,13 @@ export default function FileUpload({ onUploadSuccess }) {
                       </svg>
                     </div>
                     <p className="text-slate-700 font-semibold text-lg mb-1">
-                      Drop your CSV here
+                      Drop your file here
                     </p>
                     <p className="text-slate-400 text-sm mb-5">or click to browse files</p>
                     <span className="inline-block bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-6 py-2.5 rounded-xl transition-colors">
                       Browse Files
                     </span>
-                    <p className="text-slate-300 text-xs mt-4">Max 50 MB · CSV only in Phase 1</p>
+                    <p className="text-slate-300 text-xs mt-4">Max 50 MB · CSV, Excel, JSON, or Image</p>
                   </>
                 )}
               </div>
@@ -167,13 +170,13 @@ export default function FileUpload({ onUploadSuccess }) {
               </div>
 
               <div className="bg-slate-900 rounded-2xl p-5">
-                <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide mb-2">Supported in Phase 1</p>
+                <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide mb-2">Supported formats</p>
                 <div className="flex flex-wrap gap-2">
-                  {['CSV', 'UTF-8', 'UTF-16', 'Semicolon-sep', 'Tab-sep'].map((tag) => (
+                  {['CSV', 'Excel (.xlsx)', 'JSON', 'PNG', 'JPG', 'WEBP'].map((tag) => (
                     <span key={tag} className="text-xs bg-slate-800 text-slate-300 px-2.5 py-1 rounded-lg font-medium">{tag}</span>
                   ))}
                 </div>
-                <p className="text-xs text-slate-600 mt-3">Excel · JSON · Image OCR coming in Phase 3</p>
+                <p className="text-xs text-slate-600 mt-3">Images use Claude Vision OCR to extract tables</p>
               </div>
             </div>
           </div>

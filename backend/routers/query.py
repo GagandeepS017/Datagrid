@@ -14,18 +14,19 @@ class QueryRequest(BaseModel):
 
 
 class QueryResponse(BaseModel):
-    question: str
-    sql: str
-    columns: list[str]
-    rows: list[list]
+    question:  str
+    sql:       str
+    columns:   list[str]
+    rows:      list[list]
     row_count: int
+    chart:     dict | None = None
 
 
 def _build_schema_context(table_id: str) -> dict:
     df = _tables[table_id]
     return {
         "table_name": f"t_{table_id.replace('-', '_')}",
-        "columns": infer_schema(df),
+        "columns":    infer_schema(df),
         "sample_rows": sample_rows(df),
     }
 
@@ -43,7 +44,9 @@ def run_query(req: QueryRequest):
     error_feedback = None
     for _ in range(2):
         try:
-            sql = generate_sql(req.question, schema, error_feedback=error_feedback)
+            result = generate_sql(req.question, schema, error_feedback=error_feedback)
+            sql    = result["sql"]
+            chart  = result.get("chart")
             columns, rows = execute_query(sql)
             return QueryResponse(
                 question=req.question,
@@ -51,6 +54,7 @@ def run_query(req: QueryRequest):
                 columns=columns,
                 rows=rows,
                 row_count=len(rows),
+                chart=chart,
             )
         except Exception as exc:
             error_feedback = str(exc)

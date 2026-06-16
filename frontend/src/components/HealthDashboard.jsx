@@ -4,6 +4,7 @@ import {
   BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer,
 } from 'recharts'
 import Sidebar from './Sidebar'
+import { downloadReport } from '../utils/reportExport'
 
 // ── Quality alert helpers ──────────────────────────────────────────────────────
 function alertMeta(col) {
@@ -275,13 +276,13 @@ function CorrelationMatrix({ matrix }) {
 }
 
 // ── Main ──────────────────────────────────────────────────────────────────────
-export default function HealthDashboard({ profile, onProceed, onReset }) {
+export default function HealthDashboard({ profile, onProceed, onLab, onReset }) {
   if (!profile) return null
   const { summary, insights, abnormal_columns, correlation_matrix, missing_value_matrix } = profile
 
   return (
     <div className="flex h-full w-full overflow-hidden bg-slate-100">
-      <Sidebar activeItem="health" actions={{ onReset, onProceed }} />
+      <Sidebar activeItem="health" actions={{ onReset, onProceed, onLab }} />
 
       {/* Main scrollable area */}
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
@@ -295,12 +296,21 @@ export default function HealthDashboard({ profile, onProceed, onReset }) {
             <span className="text-slate-300">|</span>
             <span className="text-blue-600 font-medium">Phase 2</span>
           </div>
-          <button
-            onClick={onProceed}
-            className="bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold px-5 py-2 rounded-lg transition-colors"
-          >
-            Start Analysis →
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => downloadReport(profile, 'dataset')}
+              className="border border-slate-200 hover:border-slate-300 text-slate-600 text-sm font-medium px-4 py-2 rounded-lg transition-colors flex items-center gap-1.5"
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} className="w-4 h-4"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Export Report
+            </button>
+            <button
+              onClick={onProceed}
+              className="bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold px-5 py-2 rounded-lg transition-colors"
+            >
+              Start Analysis →
+            </button>
+          </div>
         </header>
 
         {/* Scrollable content */}
