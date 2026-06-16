@@ -210,6 +210,46 @@ export default function FileUpload({ onUploadSuccess }) {
             </div>
           </div>
 
+          {/* Recent datasets */}
+          {recent.length > 0 && (
+            <div className="max-w-5xl mb-8">
+              <h2 className="text-base font-semibold text-slate-700 mb-4">Recent datasets</h2>
+              <div className="bg-white rounded-2xl border border-slate-200 divide-y divide-slate-100">
+                {recent.slice(0, 5).map((t) => (
+                  <button
+                    key={t.table_id}
+                    onClick={() => reloadRecent(t.table_id, t.filename)}
+                    disabled={!!loadingId}
+                    className="w-full flex items-center justify-between px-5 py-3.5 hover:bg-slate-50 transition-colors group disabled:opacity-50"
+                  >
+                    <div className="flex items-center gap-3 min-w-0">
+                      <div className="w-8 h-8 bg-slate-100 rounded-lg flex items-center justify-center shrink-0">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#64748b" strokeWidth={1.8} className="w-4 h-4">
+                          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
+                        </svg>
+                      </div>
+                      <div className="min-w-0 text-left">
+                        <p className="text-sm font-medium text-slate-700 truncate">{t.filename}</p>
+                        <p className="text-xs text-slate-400">{t.row_count?.toLocaleString()} rows · {t.columns?.length} columns</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-3 shrink-0 ml-4">
+                      <span className="text-xs text-slate-300">{t.uploaded_at ? new Date(t.uploaded_at).toLocaleDateString() : ''}</span>
+                      {loadingId === t.table_id ? (
+                        <div className="w-4 h-4 border-2 border-blue-500 border-t-transparent rounded-full animate-spin" />
+                      ) : (
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8}
+                          className="w-4 h-4 text-slate-300 group-hover:text-blue-500 transition-colors">
+                          <polyline points="9 18 15 12 9 6"/>
+                        </svg>
+                      )}
+                    </div>
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+
           {/* Sample datasets */}
           {samples.length > 0 && (
             <div className="max-w-5xl mb-8">
@@ -243,46 +283,6 @@ export default function FileUpload({ onUploadSuccess }) {
                       {s.tags?.map((t) => (
                         <span key={t} className="text-xs bg-blue-50 text-blue-500 px-2 py-0.5 rounded font-medium">{t}</span>
                       ))}
-                    </div>
-                  </button>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Recent datasets */}
-          {recent.length > 0 && (
-            <div className="max-w-5xl">
-              <h2 className="text-base font-semibold text-slate-700 mb-4">Recent datasets</h2>
-              <div className="bg-white rounded-2xl border border-slate-200 divide-y divide-slate-100">
-                {recent.slice(0, 5).map((t) => (
-                  <button
-                    key={t.table_id}
-                    onClick={() => reloadRecent(t.table_id, t.filename)}
-                    disabled={!!loadingId}
-                    className="w-full flex items-center justify-between px-5 py-3.5 hover:bg-slate-50 transition-colors group disabled:opacity-50"
-                  >
-                    <div className="flex items-center gap-3 min-w-0">
-                      <div className="w-8 h-8 bg-slate-100 rounded-lg flex items-center justify-center shrink-0">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="#64748b" strokeWidth={1.8} className="w-4 h-4">
-                          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
-                        </svg>
-                      </div>
-                      <div className="min-w-0 text-left">
-                        <p className="text-sm font-medium text-slate-700 truncate">{t.filename}</p>
-                        <p className="text-xs text-slate-400">{t.row_count?.toLocaleString()} rows · {t.columns?.length} columns</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-3 shrink-0 ml-4">
-                      <span className="text-xs text-slate-300">{t.uploaded_at ? new Date(t.uploaded_at).toLocaleDateString() : ''}</span>
-                      {loadingId === t.table_id ? (
-                        <div className="w-4 h-4 border-2 border-blue-500 border-t-transparent rounded-full animate-spin" />
-                      ) : (
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8}
-                          className="w-4 h-4 text-slate-300 group-hover:text-blue-500 transition-colors">
-                          <polyline points="9 18 15 12 9 6"/>
-                        </svg>
-                      )}
                     </div>
                   </button>
                 ))}

@@ -1,0 +1,116 @@
+{
+  "name": "datagrid-nl2sql-v1",
+  "description": "Hand-labeled text-to-SQL benchmark over the three built-in sample datasets. Gold SQL uses the {table} placeholder, substituted with the live DuckDB table name at eval time. Difficulty: simple (single filter/scan), aggregation (GROUP BY / single aggregate), complex (multi-condition or ranked aggregates).",
+  "datasets": {
+    "retail_sales": "retail_sales.csv",
+    "hr_employees": "hr_employees.csv",
+    "ecommerce_orders": "ecommerce_orders.csv"
+  },
+  "items": [
+    {
+      "id": "retail_01",
+      "dataset": "retail_sales",
+      "difficulty": "simple",
+      "question": "Show all sales in the North region.",
+      "gold_sql": "SELECT * FROM {table} WHERE region = 'North'"
+    },
+    {
+      "id": "retail_02",
+      "dataset": "retail_sales",
+      "difficulty": "aggregation",
+      "question": "What is the total revenue by region?",
+      "gold_sql": "SELECT region, SUM(revenue) AS total_revenue FROM {table} GROUP BY region"
+    },
+    {
+      "id": "retail_03",
+      "dataset": "retail_sales",
+      "difficulty": "complex",
+      "question": "Which product had the highest total units sold?",
+      "gold_sql": "SELECT product, SUM(units_sold) AS total_units FROM {table} GROUP BY product ORDER BY total_units DESC LIMIT 1"
+    },
+    {
+      "id": "retail_04",
+      "dataset": "retail_sales",
+      "difficulty": "complex",
+      "question": "How many sales in the Electronics category had a discount greater than 10 percent?",
+      "gold_sql": "SELECT COUNT(*) AS cnt FROM {table} WHERE category = 'Electronics' AND discount_pct > 10"
+    },
+    {
+      "id": "retail_05",
+      "dataset": "retail_sales",
+      "difficulty": "aggregation",
+      "question": "What is the average profit margin per category?",
+      "gold_sql": "SELECT category, AVG(profit_margin) AS avg_margin FROM {table} GROUP BY category"
+    },
+    {
+      "id": "hr_01",
+      "dataset": "hr_employees",
+      "difficulty": "simple",
+      "question": "How many employees work remotely?",
+      "gold_sql": "SELECT COUNT(*) AS cnt FROM {table} WHERE is_remote = TRUE"
+    },
+    {
+      "id": "hr_02",
+      "dataset": "hr_employees",
+      "difficulty": "aggregation",
+      "question": "What is the average salary by department?",
+      "gold_sql": "SELECT department, AVG(salary) AS avg_salary FROM {table} GROUP BY department"
+    },
+    {
+      "id": "hr_03",
+      "dataset": "hr_employees",
+      "difficulty": "complex",
+      "question": "How many employees have more than 10 years of experience and a performance score above 4?",
+      "gold_sql": "SELECT COUNT(*) AS cnt FROM {table} WHERE years_experience > 10 AND performance_score > 4"
+    },
+    {
+      "id": "hr_04",
+      "dataset": "hr_employees",
+      "difficulty": "aggregation",
+      "question": "What is the highest salary in each department?",
+      "gold_sql": "SELECT department, MAX(salary) AS max_salary FROM {table} GROUP BY department"
+    },
+    {
+      "id": "hr_05",
+      "dataset": "hr_employees",
+      "difficulty": "aggregation",
+      "question": "How many employees were hired in each year?",
+      "gold_sql": "SELECT hire_year, COUNT(*) AS cnt FROM {table} GROUP BY hire_year"
+    },
+    {
+      "id": "ecom_01",
+      "dataset": "ecommerce_orders",
+      "difficulty": "simple",
+      "question": "Show all orders from Spain.",
+      "gold_sql": "SELECT * FROM {table} WHERE country = 'Spain'"
+    },
+    {
+      "id": "ecom_02",
+      "dataset": "ecommerce_orders",
+      "difficulty": "aggregation",
+      "question": "What is the total amount spent per country?",
+      "gold_sql": "SELECT country, SUM(total_amount) AS total FROM {table} GROUP BY country"
+    },
+    {
+      "id": "ecom_03",
+      "dataset": "ecommerce_orders",
+      "difficulty": "simple",
+      "question": "How many orders were returned?",
+      "gold_sql": "SELECT COUNT(*) AS cnt FROM {table} WHERE returned = TRUE"
+    },
+    {
+      "id": "ecom_04",
+      "dataset": "ecommerce_orders",
+      "difficulty": "aggregation",
+      "question": "What is the average rating per category?",
+      "gold_sql": "SELECT category, AVG(rating) AS avg_rating FROM {table} WHERE rating IS NOT NULL AND NOT isnan(rating) GROUP BY category"
+    },
+    {
+      "id": "ecom_05",
+      "dataset": "ecommerce_orders",
+      "difficulty": "complex",
+      "question": "How many orders had more than 5 shipping days and were not returned?",
+      "gold_sql": "SELECT COUNT(*) AS cnt FROM {table} WHERE shipping_days > 5 AND returned = FALSE"
+    }
+  ]
+}

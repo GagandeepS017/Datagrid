@@ -7,3 +7,5 @@ python-multipart>=0.0.12
 openpyxl>=3.1.5
 python-dotenv>=1.0.1
 pydantic>=2.10.0
+scipy>=1.14.0
+mlflow>=2.16.0

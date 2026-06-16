@@ -121,6 +121,32 @@ def delete_table(table_id: str) -> None:
         _save_registry(reg)
 
 
+def register_temp_table(table_id: str, df: pd.DataFrame) -> str:
+    """Register a DataFrame for in-memory querying only — NO disk persistence.
+
+    Used by the evaluation harness so benchmark tables are queryable via
+    execute_query() without polluting registry.json or the recent-datasets UI.
+    Pair with unregister_table() for cleanup.
+    """
+    table_name = f"t_{table_id.replace('-', '_')}"
+    with _lock:
+        _tables[table_id] = df
+        _conn.register(table_name, df)
+    return table_name
+
+
+def unregister_table(table_id: str) -> None:
+    """Remove an in-memory table registration (no disk side effects)."""
+    with _lock:
+        if table_id in _tables:
+            table_name = f"t_{table_id.replace('-', '_')}"
+            try:
+                _conn.unregister(table_name)
+            except Exception:
+                pass
+            del _tables[table_id]
+
+
 _MAX_ROWS = 1000
 
 
