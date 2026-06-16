@@ -4,32 +4,30 @@ import FileUpload from './components/FileUpload'
 import SchemaInfo from './components/SchemaInfo'
 import QueryChat from './components/QueryChat'
 import HealthDashboard from './components/HealthDashboard'
+import LabPanel from './components/LabPanel'
 import Sidebar from './components/Sidebar'
-
-// App moves through three stages:
-//   'upload'    → FileUpload
-//   'profiling' → loading spinner (calling /api/profile)
-//   'dashboard' → HealthDashboard (user clicks "Explore Data →")
-//   'query'     → SchemaInfo + QueryChat
 
 export default function App() {
   const [stage, setStage] = useState('upload')
   const [table, setTable] = useState(null)
   const [profile, setProfile] = useState(null)
   const [profileError, setProfileError] = useState(null)
+  const [queryHistory, setQueryHistory] = useState([])
+  const [labState, setLabState] = useState({
+    tab:       'synthetic',
+    synthetic: { nRows: 100, result: null, error: null },
+    whatif:    { scenario: '', result: null, error: null, showSql: false },
+  })
 
-  // Called by FileUpload once /api/upload succeeds
   const handleUploadSuccess = async (uploadData) => {
     setTable(uploadData)
     setStage('profiling')
     setProfileError(null)
-
     try {
       const { data } = await axios.post('/api/profile', { table_id: uploadData.table_id })
       setProfile(data)
       setStage('dashboard')
     } catch (err) {
-      // Profiling failed — skip dashboard and go straight to query
       setProfileError(err.response?.data?.detail ?? 'Profiling failed.')
       setStage('query')
     }
@@ -40,18 +38,32 @@ export default function App() {
     setTable(null)
     setProfile(null)
     setProfileError(null)
+    setQueryHistory([])
+    setLabState({
+      tab:       'synthetic',
+      synthetic: { nRows: 100, result: null, error: null },
+      whatif:    { scenario: '', result: null, error: null, showSql: false },
+    })
   }
 
-  // ── Upload ──────────────────────────────────────────────────────────────────
+  // Sidebar actions shared across all post-upload stages
+  const nav = {
+    onReset:   handleReset,
+    onHealth:  profile ? () => setStage('dashboard') : null,
+    onProceed: table   ? () => setStage('query')     : null,
+    onLab:     table   ? () => setStage('lab')       : null,
+  }
+
+  // ── Upload ────────────────────────────────────────────────────────────────
   if (stage === 'upload') {
     return <FileUpload onUploadSuccess={handleUploadSuccess} />
   }
 
-  // ── Profiling spinner ────────────────────────────────────────────────────────
+  // ── Profiling spinner ─────────────────────────────────────────────────────
   if (stage === 'profiling') {
     return (
       <div className="flex h-full w-full overflow-hidden bg-slate-100">
-        <Sidebar activeItem="health" actions={{ onReset: handleReset }} />
+        <Sidebar activeItem="health" actions={nav} />
         <div className="flex-1 flex flex-col items-center justify-center gap-4">
           <div className="w-10 h-10 border-4 border-blue-500 border-t-transparent rounded-full animate-spin" />
           <div className="text-center">
@@ -63,54 +75,51 @@ export default function App() {
     )
   }
 
-  // ── Health dashboard ─────────────────────────────────────────────────────────
+  // ── Health dashboard ──────────────────────────────────────────────────────
   if (stage === 'dashboard') {
     return (
       <HealthDashboard
         profile={profile}
         onProceed={() => setStage('query')}
+        onLab={() => setStage('lab')}
         onReset={handleReset}
       />
     )
   }
 
-  // ── Query interface ──────────────────────────────────────────────────────────
-  return (
-    <div className="h-full w-full bg-slate-50 flex flex-col overflow-hidden">
-      <header className="bg-white border-b border-slate-200 px-6 py-3 flex items-center justify-between">
-        <h1 className="text-lg font-bold text-slate-800 tracking-tight">DataGrid</h1>
-        <div className="flex items-center gap-4">
-          {profile && (
-            <button
-              onClick={() => setStage('dashboard')}
-              className="text-sm text-blue-600 hover:text-blue-800 transition-colors"
-            >
-              View Health Report
-            </button>
-          )}
-          <button
-            onClick={handleReset}
-            className="text-sm text-slate-500 hover:text-slate-800 transition-colors"
-          >
-            Upload new file
-          </button>
-        </div>
-      </header>
-
-      {profileError && (
-        <div className="bg-amber-50 border-b border-amber-200 px-6 py-2 text-xs text-amber-700">
-          Profiling skipped: {profileError}
-        </div>
-      )}
-
-      <div className="flex flex-1 overflow-hidden max-w-6xl w-full mx-auto px-4 py-6 gap-6">
-        <aside className="w-72 shrink-0">
+  // ── Shared content wrapper (query + lab) ──────────────────────────────────
+  const ContentShell = ({ active, children }) => (
+    <div className="flex h-full w-full overflow-hidden bg-slate-100">
+      <Sidebar activeItem={active} actions={nav} />
+      <div className="flex-1 flex overflow-hidden p-4 gap-4">
+        <aside className="w-64 shrink-0 flex flex-col gap-3">
           <SchemaInfo table={table} />
+          {profileError && (
+            <div className="bg-amber-50 border border-amber-200 rounded-xl px-3 py-2 text-xs text-amber-700">
+              Profiling skipped: {profileError}
+            </div>
+          )}
         </aside>
         <main className="flex-1 flex flex-col bg-white rounded-2xl border border-slate-200 shadow-sm p-5 overflow-hidden">
-          <QueryChat tableId={table.table_id} />
+          {children}
         </main>
       </div>
     </div>
+  )
+
+  // ── Lab ───────────────────────────────────────────────────────────────────
+  if (stage === 'lab') {
+    return (
+      <ContentShell active="lab">
+        <LabPanel table={table} labState={labState} setLabState={setLabState} />
+      </ContentShell>
+    )
+  }
+
+  // ── Query ─────────────────────────────────────────────────────────────────
+  return (
+    <ContentShell active="analysis">
+      <QueryChat tableId={table.table_id} history={queryHistory} setHistory={setQueryHistory} />
+    </ContentShell>
   )
 }

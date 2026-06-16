@@ -12,15 +12,14 @@ const Icon = {
 // activeItem: 'upload' | 'health' | 'analysis'
 // actions: { onReset, onProceed, onHealth }
 export default function Sidebar({ activeItem = 'upload', actions = {} }) {
-  const { onReset, onProceed, onHealth } = actions
+  const { onReset, onProceed, onHealth, onLab } = actions
 
   const primary = [
     { key: 'upload',   label: 'Upload',   action: onReset },
     { key: 'preview',  label: 'Preview',  action: null },
     { key: 'health',   label: 'Health',   action: onHealth ?? null },
     { key: 'analysis', label: 'Analysis', action: onProceed ?? null },
-    { key: 'lab',      label: 'Lab',      action: null },
-    { key: 'export',   label: 'Export',   action: null },
+    { key: 'lab',      label: 'Lab',      action: onLab ?? null },
   ]
   const bottom = [
     { key: 'help',    label: 'Help',    action: null },
