@@ -27,14 +27,14 @@ const DownloadIcon = () => (
 function SyntheticTab({ tableId, tableName, state, setState, onApplyResult }) {
   const [loading, setLoading]   = useState(false)
   const [applying, setApplying] = useState(false)
-  const { nRows, result, error } = state
+  const { nRows, result, error, method = 'copula' } = state
 
   const set = (patch) => setState((s) => ({ ...s, synthetic: { ...s.synthetic, ...patch } }))
 
   const generate = async () => {
     setLoading(true); set({ error: null, result: null })
     try {
-      const { data } = await axios.post('/api/lab/synthetic', { table_id: tableId, n_rows: nRows })
+      const { data } = await axios.post('/api/lab/synthetic', { table_id: tableId, n_rows: nRows, method })
       set({ result: data })
     } catch (err) {
       set({ error: err.response?.data?.detail ?? 'Generation failed.' })
@@ -82,6 +82,24 @@ function SyntheticTab({ tableId, tableName, state, setState, onApplyResult }) {
             className="w-36 border border-slate-300 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
+        <div>
+          <label className="block text-xs font-medium text-slate-600 mb-1.5">Method</label>
+          <div className="inline-flex rounded-xl border border-slate-300 p-0.5 bg-slate-50">
+            {[
+              { key: 'copula',      label: 'Copula',      hint: 'Preserves correlations' },
+              { key: 'independent', label: 'Independent', hint: 'Per-column only' },
+            ].map(({ key, label, hint }) => (
+              <button
+                key={key} onClick={() => set({ method: key })} title={hint}
+                className={`px-3 py-1.5 text-sm font-medium rounded-lg transition-colors ${
+                  method === key ? 'bg-blue-600 text-white' : 'text-slate-600 hover:text-slate-900'
+                }`}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+        </div>
         <button
           onClick={generate} disabled={loading || applying}
           className="bg-blue-600 hover:bg-blue-700 disabled:opacity-40 text-white rounded-xl px-5 py-2 text-sm font-medium transition-colors"
@@ -90,12 +108,44 @@ function SyntheticTab({ tableId, tableName, state, setState, onApplyResult }) {
         </button>
       </div>
 
+      <p className="text-xs text-slate-400 -mt-3 max-w-2xl">
+        <span className="font-medium text-slate-500">Gaussian Copula</span> preserves the joint distribution
+        and inter-column correlations of your data. <span className="font-medium text-slate-500">Independent</span> samples
+        each column separately — faster, but relationships between columns are lost.
+      </p>
+
       {error && (
         <div className="bg-red-50 border border-red-200 text-red-600 text-sm rounded-xl px-4 py-3">{error}</div>
       )}
 
       {result && (
         <div className="space-y-3">
+          {result.note && (
+            <div className="bg-amber-50 border border-amber-200 text-amber-700 text-xs rounded-xl px-4 py-2.5">{result.note}</div>
+          )}
+
+          <div className="flex items-center gap-3 flex-wrap">
+            <span className={`text-xs font-medium px-2.5 py-1 rounded-lg ${
+              result.method === 'copula' ? 'bg-blue-50 text-blue-600' : 'bg-slate-100 text-slate-600'
+            }`}>
+              {result.method === 'copula' ? 'Gaussian Copula' : 'Independent sampling'}
+            </span>
+
+            {result.fidelity ? (
+              <div className="flex items-center gap-2 text-xs">
+                <span className="text-slate-500">Correlation fidelity</span>
+                <span className="font-semibold text-slate-800">
+                  {(result.fidelity.corr_similarity * 100).toFixed(1)}%
+                </span>
+                <span className="text-slate-400">
+                  (MAE {result.fidelity.corr_mae} over {result.fidelity.n_numeric_cols} numeric cols — lower is better)
+                </span>
+              </div>
+            ) : (
+              <span className="text-xs text-slate-400">Correlation fidelity needs ≥2 numeric columns</span>
+            )}
+          </div>
+
           <p className="text-xs text-slate-400">{result.rows.length} synthetic rows generated — preview (first 20 shown)</p>
           <ResultTable columns={result.columns} rows={result.rows.slice(0, 20)} />
 

@@ -9,7 +9,12 @@ from pydantic import BaseModel
 
 from services.schema import infer_schema, sample_rows
 from services.sql_engine import execute_query, register_table, table_exists, _tables
-from services.synthesizer import synthesize
+from services.synthesizer import (
+    correlation_fidelity,
+    synthesize_copula,
+    synthesize_independent,
+    to_jsonable_rows,
+)
 
 router = APIRouter(tags=["lab"])
 
@@ -44,11 +49,15 @@ Rules:
 class SyntheticRequest(BaseModel):
     table_id: str
     n_rows:   int = 100
+    method:   str = "copula"   # "copula" (correlation-preserving) | "independent"
 
 
 class SyntheticResponse(BaseModel):
-    columns: list[str]
-    rows:    list[list]
+    columns:  list[str]
+    rows:     list[list]
+    method:   str                       # method actually used (may differ if fallback)
+    fidelity: dict | None = None        # correlation-fidelity score vs original
+    note:     str | None = None         # populated when copula fell back to independent
 
 
 class WhatIfRequest(BaseModel):
@@ -70,12 +79,35 @@ def generate_synthetic(req: SyntheticRequest):
         raise HTTPException(status_code=404, detail="Table not found. Please re-upload your file.")
     if req.n_rows < 1 or req.n_rows > 10_000:
         raise HTTPException(status_code=400, detail="n_rows must be between 1 and 10,000.")
+    if req.method not in ("copula", "independent"):
+        raise HTTPException(status_code=400, detail="method must be 'copula' or 'independent'.")
 
-    df         = _tables[req.table_id]
-    synthetic  = synthesize(df, req.n_rows)
-    columns    = synthetic.columns.tolist()
-    rows       = [[r[c] for c in columns] for _, r in synthetic.iterrows()]
-    return SyntheticResponse(columns=columns, rows=rows)
+    df   = _tables[req.table_id]
+    note = None
+
+    if req.method == "copula":
+        try:
+            synthetic   = synthesize_copula(df, req.n_rows)
+            used_method = "copula"
+        except Exception as exc:
+            # Graceful fallback: missing dep, unmodelable column, or fit failure.
+            synthetic   = synthesize_independent(df, req.n_rows)
+            used_method = "independent"
+            note        = f"Copula synthesis unavailable ({exc}); fell back to independent sampling."
+    else:
+        synthetic   = synthesize_independent(df, req.n_rows)
+        used_method = "independent"
+
+    columns, rows = to_jsonable_rows(synthetic)
+    fidelity      = correlation_fidelity(df, synthetic)
+
+    return SyntheticResponse(
+        columns=columns,
+        rows=rows,
+        method=used_method,
+        fidelity=fidelity,
+        note=note,
+    )
 
 
 @router.post("/lab/whatif", response_model=WhatIfResponse)

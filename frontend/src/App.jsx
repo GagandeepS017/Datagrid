@@ -15,7 +15,7 @@ export default function App() {
   const [queryHistory, setQueryHistory] = useState([])
   const [labState, setLabState] = useState({
     tab:       'synthetic',
-    synthetic: { nRows: 100, result: null, error: null },
+    synthetic: { nRows: 100, method: 'copula', result: null, error: null },
     whatif:    { scenario: '', result: null, error: null, showSql: false },
   })
 
@@ -41,7 +41,7 @@ export default function App() {
     setQueryHistory([])
     setLabState({
       tab:       'synthetic',
-      synthetic: { nRows: 100, result: null, error: null },
+      synthetic: { nRows: 100, method: 'copula', result: null, error: null },
       whatif:    { scenario: '', result: null, error: null, showSql: false },
     })
   }
