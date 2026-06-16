@@ -6,9 +6,9 @@ Write-Host "Starting DataGrid..." -ForegroundColor Cyan
 # ── Kill anything holding port 8000 ─────────────────────────────────────────
 $procs = netstat -ano 2>$null | Select-String ":8000\s"
 foreach ($line in $procs) {
-    $pid = ($line.ToString().Trim() -split '\s+')[-1]
-    if ($pid -match '^\d+$' -and [int]$pid -ne 0) {
-        Stop-Process -Id ([int]$pid) -Force -ErrorAction SilentlyContinue
+    $procId = ($line.ToString().Trim() -split '\s+')[-1]
+    if ($procId -match '^\d+$' -and [int]$procId -ne 0) {
+        Stop-Process -Id ([int]$procId) -Force -ErrorAction SilentlyContinue
     }
 }
 
@@ -20,11 +20,10 @@ Start-Process powershell -ArgumentList "-NoExit", "-Command", `
 Start-Sleep 3
 
 # ── Frontend ─────────────────────────────────────────────────────────────────
-Write-Host "Starting frontend on :5173" -ForegroundColor Green
+Write-Host "Starting frontend on :5174" -ForegroundColor Green
 Start-Process powershell -ArgumentList "-NoExit", "-Command", `
     "Set-Location '$PSScriptRoot\frontend'; npm run dev"
 
 Write-Host ""
 Write-Host "Backend:  http://localhost:8000" -ForegroundColor Yellow
-Write-Host "Frontend: http://localhost:5173" -ForegroundColor Yellow
-Write-Host "(If 5173 is taken, Vite picks the next free port)" -ForegroundColor DarkGray
+Write-Host "Frontend: http://localhost:5174" -ForegroundColor Yellow

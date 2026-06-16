@@ -62,7 +62,7 @@ async def upload_file(file: UploadFile = File(...)):
         raise HTTPException(status_code=422, detail="File is empty or contains no tabular data.")
 
     table_id   = str(uuid.uuid4())
-    table_name = register_table(table_id, df)
+    table_name = register_table(table_id, df, filename=file.filename)
     columns    = infer_schema(df)
     samples    = sample_rows(df)
 
