@@ -1,12 +1,14 @@
 import json
 import os
+import uuid
 
 import anthropic
+import pandas as pd
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 
 from services.schema import infer_schema, sample_rows
-from services.sql_engine import execute_query, table_exists, _tables
+from services.sql_engine import execute_query, register_table, table_exists, _tables
 from services.synthesizer import synthesize
 
 router = APIRouter(tags=["lab"])
@@ -126,3 +128,50 @@ def run_whatif(req: WhatIfRequest):
         rows=rows,
         row_count=len(rows),
     )
+
+
+# ── Apply endpoints ───────────────────────────────────────────────────────────
+
+class ApplyWhatIfRequest(BaseModel):
+    table_id: str
+    sql:      str
+
+
+class AppendSyntheticRequest(BaseModel):
+    table_id: str
+    columns:  list[str]
+    rows:     list[list]
+
+
+def _apply_response(df: pd.DataFrame, filename: str) -> dict:
+    new_id     = str(uuid.uuid4())
+    table_name = register_table(new_id, df, filename=filename)
+    return {
+        "table_id":    new_id,
+        "table_name":  table_name,
+        "row_count":   len(df),
+        "columns":     infer_schema(df),
+        "sample_rows": sample_rows(df),
+    }
+
+
+@router.post("/lab/whatif/apply")
+def apply_whatif(req: ApplyWhatIfRequest):
+    if not table_exists(req.table_id):
+        raise HTTPException(status_code=404, detail="Table not found.")
+    try:
+        columns, rows = execute_query(req.sql)
+    except Exception as e:
+        raise HTTPException(status_code=422, detail=f"SQL execution failed: {e}")
+    df = pd.DataFrame(rows, columns=columns)
+    return _apply_response(df, filename=f"whatif_{req.table_id[:8]}.csv")
+
+
+@router.post("/lab/synthetic/append")
+def append_synthetic(req: AppendSyntheticRequest):
+    if not table_exists(req.table_id):
+        raise HTTPException(status_code=404, detail="Table not found.")
+    original_df = _tables[req.table_id]
+    synth_df    = pd.DataFrame(req.rows, columns=req.columns)
+    combined_df = pd.concat([original_df, synth_df], ignore_index=True)
+    return _apply_response(combined_df, filename=f"appended_{req.table_id[:8]}.csv")

@@ -107,11 +107,17 @@ export default function App() {
     </div>
   )
 
+  const handleApplyResult = (uploadData) => {
+    setTable(uploadData)
+    setQueryHistory([])
+    setStage('query')
+  }
+
   // ── Lab ───────────────────────────────────────────────────────────────────
   if (stage === 'lab') {
     return (
       <ContentShell active="lab">
-        <LabPanel table={table} labState={labState} setLabState={setLabState} />
+        <LabPanel table={table} labState={labState} setLabState={setLabState} onApplyResult={handleApplyResult} />
       </ContentShell>
     )
   }
