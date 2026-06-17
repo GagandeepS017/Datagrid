@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react'
 import axios from 'axios'
 import ResultTable from './ResultTable'
 import QueryChart from './QueryChart'
+import { API_BASE } from '../config'
 
 function downloadCsv(columns, rows) {
   const esc = (v) => { const s = String(v ?? ''); return s.includes(',') || s.includes('"') ? `"${s.replace(/"/g, '""')}"` : s }
@@ -21,7 +22,7 @@ async function downloadExcel(columns, rows) {
 
 async function streamInterpretation(question, columns, rows, onToken, onDone) {
   try {
-    const res = await fetch('/api/query/interpret', {
+    const res = await fetch(`${API_BASE}/api/query/interpret`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ question, columns, rows: rows.slice(0, 10) }),

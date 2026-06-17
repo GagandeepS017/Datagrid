@@ -1,0 +1,16 @@
+# Slim dependency set for free-tier deployment (Render).
+# Excludes sdv (which pulls in torch, ~hundreds of MB) and mlflow, which exceed
+# free-tier build/memory limits. Both are optional at runtime:
+#   - synthetic data: the Gaussian-copula option falls back to independent sampling
+#   - eval harness: still runs, just without MLflow experiment tracking
+# Use the full requirements.txt for local development.
+fastapi>=0.115.0
+uvicorn[standard]>=0.32.0
+duckdb>=1.1.3
+pandas>=2.2.3
+anthropic>=0.40.0
+python-multipart>=0.0.12
+openpyxl>=3.1.5
+python-dotenv>=1.0.1
+pydantic>=2.10.0
+scipy>=1.14.0

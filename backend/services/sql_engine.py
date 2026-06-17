@@ -9,9 +9,17 @@ from typing import Any
 import duckdb
 import pandas as pd
 
+# Uploaded tables are persisted to disk so they survive a local restart. On a
+# host with an ephemeral filesystem (e.g. Render's free tier) these writes are
+# best-effort: they succeed but the files vanish on restart/redeploy, so the app
+# falls back to in-memory-only tables. All disk access below is wrapped so a
+# read-only or ephemeral filesystem never breaks uploads or queries.
 _DATA_DIR    = Path(__file__).parent.parent / "data" / "uploads"
 _REGISTRY    = _DATA_DIR.parent / "registry.json"
-_DATA_DIR.mkdir(parents=True, exist_ok=True)
+try:
+    _DATA_DIR.mkdir(parents=True, exist_ok=True)
+except OSError:
+    pass
 
 _conn  = duckdb.connect(":memory:")
 _lock  = threading.Lock()
@@ -32,7 +40,10 @@ def _load_registry() -> dict:
 
 
 def _save_registry(reg: dict) -> None:
-    _REGISTRY.write_text(json.dumps(reg, indent=2))
+    try:
+        _REGISTRY.write_text(json.dumps(reg, indent=2))
+    except OSError:
+        pass  # ephemeral/read-only filesystem; registry is best-effort only
 
 
 def _restore_tables() -> None:
@@ -68,20 +79,25 @@ def register_table(table_id: str, df: pd.DataFrame, filename: str = "") -> str:
         _tables[table_id] = df
         _conn.register(table_name, df)
 
-        pkl_path = _DATA_DIR / f"{table_id}.pkl"
-        with open(pkl_path, "wb") as fh:
-            pickle.dump(df, fh)
+        # Best-effort persistence: skip silently if the filesystem is ephemeral
+        # or read-only. The table is already live in memory either way.
+        try:
+            pkl_path = _DATA_DIR / f"{table_id}.pkl"
+            with open(pkl_path, "wb") as fh:
+                pickle.dump(df, fh)
 
-        reg = _load_registry()
-        reg["tables"][table_id] = {
-            "table_id":    table_id,
-            "table_name":  table_name,
-            "filename":    filename or table_id,
-            "row_count":   len(df),
-            "columns":     [{"name": c["name"], "type": c["type"]} for c in _schema_lite(df)],
-            "uploaded_at": datetime.now(timezone.utc).isoformat(),
-        }
-        _save_registry(reg)
+            reg = _load_registry()
+            reg["tables"][table_id] = {
+                "table_id":    table_id,
+                "table_name":  table_name,
+                "filename":    filename or table_id,
+                "row_count":   len(df),
+                "columns":     [{"name": c["name"], "type": c["type"]} for c in _schema_lite(df)],
+                "uploaded_at": datetime.now(timezone.utc).isoformat(),
+            }
+            _save_registry(reg)
+        except OSError:
+            pass
 
     return table_name
 
