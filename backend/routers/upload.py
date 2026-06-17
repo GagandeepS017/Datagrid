@@ -4,7 +4,7 @@ import uuid
 from fastapi import APIRouter, HTTPException, UploadFile, File
 from pydantic import BaseModel
 
-from services.ingestion import parse_csv, parse_excel, parse_json, parse_image
+from services.ingestion import parse_csv, parse_excel, parse_json
 from services.schema import infer_schema, sample_rows
 from services.sql_engine import register_table, table_exists
 
@@ -12,9 +12,7 @@ router = APIRouter(tags=["upload"])
 
 _MAX_FILE_SIZE = 50 * 1024 * 1024  # 50 MB
 
-_TABULAR_EXTENSIONS = {".csv", ".xlsx", ".xls", ".json"}
-_IMAGE_EXTENSIONS   = {".png", ".jpg", ".jpeg", ".webp", ".gif"}
-_ALLOWED_EXTENSIONS = _TABULAR_EXTENSIONS | _IMAGE_EXTENSIONS
+_ALLOWED_EXTENSIONS = {".csv", ".xlsx", ".xls", ".json"}
 
 
 class UploadResponse(BaseModel):
@@ -39,7 +37,7 @@ async def upload_file(file: UploadFile = File(...)):
     if ext not in _ALLOWED_EXTENSIONS:
         raise HTTPException(
             status_code=400,
-            detail=f"Unsupported file type '{ext}'. Accepted: CSV, Excel (.xlsx), JSON, PNG, JPG, WEBP.",
+            detail=f"Unsupported file type '{ext}'. Accepted: CSV, Excel (.xlsx), JSON.",
         )
 
     raw = await file.read()
@@ -51,10 +49,8 @@ async def upload_file(file: UploadFile = File(...)):
             df = parse_csv(raw)
         elif ext in (".xlsx", ".xls"):
             df = parse_excel(raw)
-        elif ext == ".json":
-            df = parse_json(raw)
         else:
-            df = parse_image(raw, ext)
+            df = parse_json(raw)
     except Exception as e:
         raise HTTPException(status_code=422, detail=f"Could not parse file: {e}")
 

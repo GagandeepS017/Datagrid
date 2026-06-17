@@ -13,7 +13,7 @@ export default function FileUpload({ onUploadSuccess }) {
   const [recent, setRecent]       = useState([])
   const inputRef = useRef(null)
 
-  const ACCEPTED_EXTS = ['.csv', '.xlsx', '.xls', '.json', '.png', '.jpg', '.jpeg', '.webp', '.gif']
+  const ACCEPTED_EXTS = ['.csv', '.xlsx', '.xls', '.json']
 
   useEffect(() => {
     axios.get('/api/samples').then(r => setSamples(r.data)).catch(() => {})
@@ -24,7 +24,7 @@ export default function FileUpload({ onUploadSuccess }) {
     if (!file) return
     const ext = file.name.toLowerCase().match(/\.[^.]+$/)?.[0] ?? ''
     if (!ACCEPTED_EXTS.includes(ext)) {
-      setError(`Unsupported file type "${ext}". Accepted: CSV, Excel, JSON, PNG, JPG, WEBP.`)
+      setError(`Unsupported file type "${ext}". Accepted: CSV, Excel, JSON.`)
       return
     }
     setError(null)
@@ -134,7 +134,7 @@ export default function FileUpload({ onUploadSuccess }) {
                 <input
                   ref={inputRef}
                   type="file"
-                  accept=".csv,.xlsx,.xls,.json,.png,.jpg,.jpeg,.webp,.gif"
+                  accept=".csv,.xlsx,.xls,.json"
                   className="hidden"
                   onChange={(e) => handleFile(e.target.files[0])}
                 />
@@ -161,7 +161,7 @@ export default function FileUpload({ onUploadSuccess }) {
                     <span className="inline-block bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium px-6 py-2.5 rounded-xl transition-colors">
                       Browse Files
                     </span>
-                    <p className="text-slate-300 text-xs mt-4">Max 50 MB · CSV, Excel, JSON, or Image</p>
+                    <p className="text-slate-300 text-xs mt-4">Max 50 MB · CSV, Excel, or JSON</p>
                   </>
                 )}
               </div>
@@ -201,11 +201,10 @@ export default function FileUpload({ onUploadSuccess }) {
               <div className="bg-slate-900 rounded-2xl p-5">
                 <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide mb-2">Supported formats</p>
                 <div className="flex flex-wrap gap-2">
-                  {['CSV', 'Excel (.xlsx)', 'JSON', 'PNG', 'JPG', 'WEBP'].map((tag) => (
+                  {['CSV', 'Excel (.xlsx)', 'JSON'].map((tag) => (
                     <span key={tag} className="text-xs bg-slate-800 text-slate-300 px-2.5 py-1 rounded-lg font-medium">{tag}</span>
                   ))}
                 </div>
-                <p className="text-xs text-slate-600 mt-3">Images use Claude Vision OCR to extract tables</p>
               </div>
             </div>
           </div>

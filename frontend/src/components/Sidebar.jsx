@@ -1,6 +1,5 @@
 const Icon = {
   upload:   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} className="w-4 h-4"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>,
-  preview:  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} className="w-4 h-4"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>,
   health:   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} className="w-4 h-4"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>,
   analysis: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} className="w-4 h-4"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>,
   lab:      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} className="w-4 h-4"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v11l-4 4a2 2 0 0 0 1.4 3.4H17.6A2 2 0 0 0 19 18l-4-4V3"/></svg>,
@@ -16,7 +15,6 @@ export default function Sidebar({ activeItem = 'upload', actions = {} }) {
 
   const primary = [
     { key: 'upload',   label: 'Upload',   action: onReset },
-    { key: 'preview',  label: 'Preview',  action: null },
     { key: 'health',   label: 'Health',   action: onHealth ?? null },
     { key: 'analysis', label: 'Analysis', action: onProceed ?? null },
     { key: 'lab',      label: 'Lab',      action: onLab ?? null },

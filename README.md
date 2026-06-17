@@ -10,7 +10,7 @@ DataGrid lets non-technical users work with their data without writing SQL. You 
 
 | Feature | Description |
 |---|---|
-| Multi-format upload | CSV, Excel (.xlsx), JSON, and images (PNG/JPG via Claude Vision OCR) |
+| Multi-format upload | CSV, Excel (.xlsx), and JSON |
 | Auto data profiling | Null rates, outlier detection, skewness, distributions, correlation heatmap |
 | Claude insights | 3-5 plain-English observations generated after upload |
 | Conversational querying | Ask in natural language; Claude writes the SQL, DuckDB executes it |
@@ -60,7 +60,7 @@ DataGrid/
 │   ├── services/
 │   │   ├── claude_client.py     SQL and chart generation
 │   │   ├── sql_engine.py        DuckDB execution, persistence, table registry
-│   │   ├── ingestion.py         CSV, Excel, JSON, image parsers
+│   │   ├── ingestion.py         CSV, Excel, JSON parsers
 │   │   ├── profiler.py          statistical profiling and Claude insights
 │   │   ├── synthesizer.py       independent and Gaussian copula synthesis
 │   │   ├── evaluator.py         text-to-SQL benchmark harness
@@ -127,7 +127,7 @@ cd frontend && npm run dev
 
 | Method | Path | Description |
 |--------|------|-------------|
-| POST | `/api/upload` | Upload CSV, Excel, JSON, or image |
+| POST | `/api/upload` | Upload CSV, Excel, or JSON |
 | GET | `/api/schema/{table_id}` | Column schema and sample rows |
 | POST | `/api/profile` | Statistical profiling and Claude insights |
 | POST | `/api/query` | Natural language to SQL to results and chart spec |
