@@ -1,0 +1,251 @@
+employee_id,department,job_title,salary,years_experience,performance_score,is_remote,hire_year
+EMP0001,Marketing,Marketing Analyst,87184,15,3.9,False,2017
+EMP0002,Operations,Operations Manager,95000,20,3.8,False,2019
+EMP0003,HR,HR Manager,62223,11,4.1,True,2022
+EMP0004,Engineering,Engineering Manager,128805,18,3.4,True,2023
+EMP0005,Engineering,Tech Lead,118501,16,3.7,True,2017
+EMP0006,Sales,Sales Manager,96033,13,3.4,True,2017
+EMP0007,Marketing,Content Strategist,38000,2,3.6,True,2020
+EMP0008,Operations,Operations Analyst,40000,0,3.6,True,2024
+EMP0009,Customer Support,Support Agent,58159,15,2.3,True,2024
+EMP0010,HR,HR Director,59861,12,3.8,True,2015
+EMP0011,Finance,Accountant,93534,11,3.0,False,2018
+EMP0012,Engineering,Junior Engineer,134632,20,3.0,True,2019
+EMP0013,Sales,Sales Rep,77726,12,3.5,True,2015
+EMP0014,Marketing,Campaign Manager,80465,14,2.6,True,2021
+EMP0015,Operations,Operations Analyst,73302,10,3.5,True,2017
+EMP0016,Customer Support,Senior Support Agent,31089,0,4.6,True,2018
+EMP0017,Operations,Operations Analyst,86938,18,3.5,False,2015
+EMP0018,HR,HR Manager,72698,17,2.8,True,2016
+EMP0019,Operations,Operations Analyst,40831,1,2.8,True,2016
+EMP0020,Finance,Finance Manager,96490,15,3.0,False,2015
+EMP0021,Marketing,CMO,45227,3,3.0,False,2017
+EMP0022,HR,HR Coordinator,74512,16,3.2,True,2016
+EMP0023,HR,Recruiter,83713,19,4.0,False,2018
+EMP0024,Marketing,CMO,69264,9,4.2,True,2022
+EMP0025,Marketing,Content Strategist,40152,0,3.5,True,2024
+EMP0026,Operations,Operations Manager,59260,4,3.1,True,2016
+EMP0027,Marketing,Content Strategist,85579,14,3.5,True,2015
+EMP0028,Engineering,Software Engineer,61831,1,3.0,False,2020
+EMP0029,HR,HR Coordinator,48745,3,2.3,True,2017
+EMP0030,Operations,COO,48719,5,4.8,False,2019
+EMP0031,Operations,Operations Analyst,71511,11,3.1,True,2021
+EMP0032,HR,HR Manager,62897,12,2.8,True,2017
+EMP0033,Engineering,Software Engineer,68579,1,3.3,True,2021
+EMP0034,Finance,CFO,106625,18,3.1,True,2020
+EMP0035,Finance,Financial Analyst,53246,4,3.6,True,2022
+EMP0036,Engineering,Junior Engineer,86557,8,3.4,False,2023
+EMP0037,Customer Support,Support Manager,60916,18,3.0,False,2020
+EMP0038,Finance,Financial Analyst,88509,13,3.1,True,2021
+EMP0039,Sales,Sales Rep,40000,0,3.2,True,2022
+EMP0040,Customer Support,Support Agent,33540,2,2.9,True,2019
+EMP0041,Engineering,Engineering Manager,78366,7,3.3,True,2016
+EMP0042,HR,HR Director,70665,18,3.9,True,2020
+EMP0043,Engineering,Tech Lead,135000,20,3.6,True,2023
+EMP0044,Finance,Financial Analyst,55334,2,1.8,False,2019
+EMP0045,Finance,Accountant,109197,20,2.0,True,2015
+EMP0046,Customer Support,Support Agent,50294,14,4.5,False,2022
+EMP0047,Operations,COO,69727,11,3.2,False,2018
+EMP0048,Engineering,Senior Engineer,105214,11,1.9,True,2023
+EMP0049,Finance,Finance Manager,58371,3,3.6,True,2021
+EMP0050,Engineering,Senior Engineer,131845,19,3.8,True,2018
+EMP0051,HR,Recruiter,64032,10,4.0,False,2024
+EMP0052,Engineering,Tech Lead,104197,14,2.0,True,2022
+EMP0053,Engineering,Engineering Manager,55000,1,3.3,False,2022
+EMP0054,Finance,Accountant,112241,18,4.6,True,2021
+EMP0055,Operations,COO,95000,19,2.9,True,2021
+EMP0056,Finance,Accountant,69330,8,3.9,True,2022
+EMP0057,Customer Support,Support Agent,30378,4,4.1,False,2023
+EMP0058,Marketing,Campaign Manager,88448,17,3.2,False,2019
+EMP0059,Operations,Operations Manager,58196,4,3.4,True,2023
+EMP0060,Finance,Finance Manager,55935,3,2.6,False,2024
+EMP0061,Operations,COO,70897,13,2.2,False,2019
+EMP0062,Customer Support,Senior Support Agent,30000,0,3.5,True,2015
+EMP0063,Operations,Operations Analyst,55566,6,4.7,True,2019
+EMP0064,Sales,Sales Rep,73279,9,4.3,True,2022
+EMP0065,Engineering,Engineering Manager,128440,17,2.6,False,2021
+EMP0066,Sales,Sales Manager,47932,1,3.2,False,2020
+EMP0067,Finance,Financial Analyst,45000,0,3.0,True,2018
+EMP0068,Operations,COO,90509,20,4.2,False,2024
+EMP0069,Sales,Account Executive,57914,9,4.1,True,2017
+EMP0070,Sales,Sales Rep,85914,12,3.6,True,2017
+EMP0071,Sales,Sales Manager,40000,0,4.5,True,2015
+EMP0072,Sales,Sales Manager,110000,19,4.0,False,2019
+EMP0073,HR,HR Manager,40928,2,2.9,True,2017
+EMP0074,Finance,Financial Analyst,104374,16,4.2,True,2016
+EMP0075,Marketing,Content Strategist,54277,6,3.0,True,2018
+EMP0076,Customer Support,Support Manager,51661,16,3.6,False,2015
+EMP0077,Engineering,Senior Engineer,111435,14,4.5,False,2018
+EMP0078,Engineering,Senior Engineer,113401,12,2.7,True,2019
+EMP0079,Finance,Finance Manager,52886,0,2.8,True,2023
+EMP0080,Customer Support,Support Manager,50322,14,3.5,False,2018
+EMP0081,Marketing,Marketing Analyst,53505,3,5.0,False,2023
+EMP0082,Engineering,Junior Engineer,74864,6,2.4,False,2021
+EMP0083,Customer Support,Support Agent,32930,6,3.2,False,2021
+EMP0084,Operations,Operations Analyst,58855,4,3.7,True,2016
+EMP0085,Engineering,Junior Engineer,76752,5,2.6,False,2018
+EMP0086,Marketing,CMO,70348,12,3.7,True,2015
+EMP0087,HR,HR Coordinator,85000,17,3.5,True,2024
+EMP0088,Engineering,Junior Engineer,101131,11,3.4,False,2019
+EMP0089,Finance,Financial Analyst,77014,9,2.8,True,2015
+EMP0090,HR,Recruiter,79060,17,4.6,False,2019
+EMP0091,Operations,Operations Analyst,59862,9,2.1,False,2020
+EMP0092,Engineering,Engineering Manager,123921,17,3.7,False,2024
+EMP0093,HR,HR Coordinator,59543,9,4.6,False,2020
+EMP0094,Sales,VP Sales,110000,20,3.2,True,2018
+EMP0095,Finance,Finance Manager,71604,6,4.2,False,2015
+EMP0096,Customer Support,Support Manager,53302,14,3.3,False,2016
+EMP0097,Marketing,Marketing Analyst,55717,6,2.7,True,2020
+EMP0098,Sales,Account Executive,50083,3,3.8,True,2020
+EMP0099,HR,HR Director,56820,10,3.1,False,2017
+EMP0100,Finance,Finance Manager,82937,10,3.4,True,2018
+EMP0101,Customer Support,Support Agent,56187,20,4.0,True,2020
+EMP0102,HR,HR Director,67305,14,4.0,False,2016
+EMP0103,Sales,Sales Rep,69733,8,3.2,False,2018
+EMP0104,Marketing,Marketing Analyst,51780,2,2.6,False,2015
+EMP0105,Customer Support,Support Manager,55974,18,4.0,True,2023
+EMP0106,Marketing,CMO,100000,20,2.8,True,2024
+EMP0107,Operations,Operations Manager,45171,4,3.7,True,2020
+EMP0108,Finance,Financial Analyst,74734,7,2.5,False,2017
+EMP0109,Customer Support,Support Manager,34036,4,3.6,False,2017
+EMP0110,Operations,COO,82583,15,3.4,True,2018
+EMP0111,Engineering,Senior Engineer,99745,11,4.5,False,2020
+EMP0112,HR,HR Director,71050,14,3.4,False,2020
+EMP0113,Engineering,Engineering Manager,135000,20,2.3,True,2024
+EMP0114,Finance,Accountant,84287,12,3.0,False,2016
+EMP0115,Finance,Finance Manager,90499,12,3.4,True,2020
+EMP0116,Customer Support,Senior Support Agent,59016,15,2.1,True,2023
+EMP0117,Sales,VP Sales,58254,5,4.3,True,2018
+EMP0118,Sales,Account Executive,52349,5,4.3,True,2018
+EMP0119,HR,HR Manager,36830,3,3.6,True,2024
+EMP0120,Sales,VP Sales,40104,0,3.9,False,2017
+EMP0121,Sales,Sales Rep,104821,18,3.8,True,2023
+EMP0122,HR,HR Coordinator,60803,9,3.3,False,2022
+EMP0123,Customer Support,Senior Support Agent,39734,5,4.2,True,2024
+EMP0124,Customer Support,Support Agent,61143,19,3.0,False,2020
+EMP0125,HR,HR Coordinator,50580,7,3.8,True,2018
+EMP0126,Finance,CFO,56537,4,3.2,False,2024
+EMP0127,Engineering,Engineering Manager,119033,16,3.2,False,2017
+EMP0128,Finance,Financial Analyst,110252,20,3.8,True,2023
+EMP0129,HR,Recruiter,73705,15,2.8,False,2024
+EMP0130,Engineering,Tech Lead,70758,4,4.7,True,2019
+EMP0131,Finance,CFO,75938,8,4.5,True,2024
+EMP0132,Finance,Financial Analyst,108283,16,3.5,False,2020
+EMP0133,HR,HR Manager,46589,3,4.3,True,2019
+EMP0134,Customer Support,Support Manager,46431,13,3.1,False,2021
+EMP0135,Customer Support,Support Agent,46704,13,3.2,True,2020
+EMP0136,Finance,CFO,79548,8,3.4,False,2021
+EMP0137,Operations,Operations Analyst,48175,3,2.7,False,2017
+EMP0138,Engineering,Software Engineer,115314,16,3.9,False,2024
+EMP0139,Operations,COO,49624,1,5.0,True,2016
+EMP0140,Customer Support,Support Agent,61026,15,3.2,True,2019
+EMP0141,Sales,Sales Manager,40783,2,2.8,True,2024
+EMP0142,Operations,COO,63139,9,2.6,True,2022
+EMP0143,HR,HR Coordinator,56825,6,2.2,False,2019
+EMP0144,Sales,Sales Rep,98775,19,3.4,False,2017
+EMP0145,Operations,Operations Analyst,70258,11,3.5,True,2016
+EMP0146,Marketing,CMO,69634,11,2.9,True,2023
+EMP0147,Engineering,Junior Engineer,55340,2,3.2,False,2024
+EMP0148,Marketing,Campaign Manager,64706,8,5.0,True,2021
+EMP0149,Finance,Financial Analyst,75696,8,4.2,False,2016
+EMP0150,Finance,Finance Manager,88517,10,3.1,True,2023
+EMP0151,Customer Support,Support Manager,39532,8,1.8,False,2022
+EMP0152,Customer Support,Support Agent,52877,10,3.3,True,2024
+EMP0153,Customer Support,Support Agent,57643,15,3.7,False,2018
+EMP0154,Operations,COO,60848,7,2.8,True,2023
+EMP0155,Finance,Financial Analyst,73024,8,3.8,False,2020
+EMP0156,Engineering,Engineering Manager,70380,5,3.6,False,2019
+EMP0157,Sales,Account Executive,92204,15,3.0,True,2019
+EMP0158,Sales,Account Executive,65839,6,2.4,True,2017
+EMP0159,Customer Support,Support Agent,41831,3,3.0,False,2022
+EMP0160,Finance,Financial Analyst,113869,17,3.1,True,2024
+EMP0161,Marketing,CMO,97744,18,2.9,False,2019
+EMP0162,HR,Recruiter,84230,18,4.1,True,2022
+EMP0163,Finance,Financial Analyst,95305,16,4.6,True,2022
+EMP0164,Engineering,Engineering Manager,110739,14,3.6,False,2018
+EMP0165,HR,HR Coordinator,53582,10,4.6,True,2023
+EMP0166,Marketing,Content Strategist,56021,8,3.7,True,2017
+EMP0167,HR,HR Director,42704,6,4.1,True,2021
+EMP0168,Marketing,CMO,40956,5,2.7,False,2018
+EMP0169,Customer Support,Support Agent,46122,8,2.7,True,2018
+EMP0170,Sales,Account Executive,93568,15,3.1,True,2017
+EMP0171,Customer Support,Support Manager,53743,16,3.4,True,2019
+EMP0172,Marketing,Marketing Analyst,77627,12,3.7,True,2019
+EMP0173,HR,HR Coordinator,69868,14,3.0,True,2023
+EMP0174,Finance,Finance Manager,86022,11,3.5,False,2024
+EMP0175,Sales,Account Executive,66913,9,4.3,True,2022
+EMP0176,Engineering,Tech Lead,129392,19,4.5,True,2017
+EMP0177,Operations,Operations Manager,71331,13,2.8,True,2016
+EMP0178,Sales,Sales Manager,61675,7,4.4,False,2019
+EMP0179,Finance,CFO,79633,8,2.7,True,2024
+EMP0180,Finance,CFO,95371,13,4.7,True,2018
+EMP0181,Operations,Operations Manager,46733,2,4.2,True,2016
+EMP0182,HR,HR Coordinator,35799,0,2.7,True,2016
+EMP0183,Marketing,Content Strategist,38340,2,2.3,True,2018
+EMP0184,Sales,Sales Manager,87142,14,3.2,True,2015
+EMP0185,Engineering,Senior Engineer,98690,10,2.9,False,2019
+EMP0186,Finance,CFO,66592,4,3.3,True,2024
+EMP0187,Finance,CFO,114930,20,2.1,True,2023
+EMP0188,Operations,COO,85059,17,4.1,False,2018
+EMP0189,Customer Support,Support Agent,52667,14,4.2,True,2019
+EMP0190,Engineering,Junior Engineer,122875,16,2.3,True,2019
+EMP0191,HR,HR Coordinator,77880,15,3.2,True,2021
+EMP0192,Customer Support,Senior Support Agent,63321,19,3.6,True,2018
+EMP0193,HR,HR Director,65005,12,4.6,False,2021
+EMP0194,Customer Support,Senior Support Agent,41823,7,4.2,True,2023
+EMP0195,Customer Support,Support Manager,42219,8,4.6,True,2021
+EMP0196,Sales,Sales Rep,59080,5,3.8,True,2024
+EMP0197,HR,HR Manager,78109,19,3.5,True,2015
+EMP0198,Finance,Financial Analyst,66510,5,3.4,True,2022
+EMP0199,Operations,Operations Analyst,59977,7,3.6,True,2020
+EMP0200,HR,HR Manager,78081,15,3.5,True,2020
+EMP0201,Engineering,Software Engineer,58483,1,4.2,False,2022
+EMP0202,Sales,Account Executive,71849,8,2.3,True,2018
+EMP0203,HR,HR Director,52399,7,3.3,True,2016
+EMP0204,Finance,Accountant,87723,15,4.6,True,2017
+EMP0205,Operations,COO,42541,1,2.6,True,2019
+EMP0206,HR,HR Manager,48954,6,3.7,False,2018
+EMP0207,Engineering,Software Engineer,134202,20,3.5,True,2024
+EMP0208,Engineering,Tech Lead,84462,7,3.5,False,2022
+EMP0209,Operations,COO,49504,4,3.7,True,2022
+EMP0210,Engineering,Engineering Manager,110447,10,2.5,False,2015
+EMP0211,Engineering,Senior Engineer,135000,20,4.2,True,2017
+EMP0212,HR,Recruiter,68756,10,3.4,True,2022
+EMP0213,Operations,Operations Analyst,40000,0,2.9,True,2019
+EMP0214,Engineering,Tech Lead,105170,14,3.2,True,2018
+EMP0215,Finance,Accountant,99825,17,4.4,True,2024
+EMP0216,Customer Support,Support Manager,41385,5,3.7,True,2019
+EMP0217,Finance,Finance Manager,101128,14,3.5,True,2017
+EMP0218,Engineering,Engineering Manager,99601,11,3.0,False,2016
+EMP0219,Operations,COO,75797,12,4.5,False,2017
+EMP0220,Finance,Finance Manager,76281,10,3.8,True,2023
+EMP0221,Operations,Operations Analyst,44095,1,3.2,True,2018
+EMP0222,Engineering,Tech Lead,84293,6,4.0,True,2022
+EMP0223,Finance,Finance Manager,45000,1,4.2,True,2015
+EMP0224,Sales,VP Sales,40007,2,3.7,True,2023
+EMP0225,Operations,Operations Manager,70726,11,3.3,False,2019
+EMP0226,Finance,Financial Analyst,53019,2,3.3,True,2023
+EMP0227,Engineering,Junior Engineer,79823,7,3.4,False,2018
+EMP0228,Finance,Accountant,104474,17,2.8,True,2024
+EMP0229,Marketing,CMO,80538,13,3.2,True,2023
+EMP0230,HR,HR Manager,40885,5,3.3,True,2020
+EMP0231,Finance,Finance Manager,77465,11,4.0,False,2020
+EMP0232,Finance,Accountant,103350,18,3.3,False,2019
+EMP0233,Marketing,CMO,81496,14,3.5,True,2019
+EMP0234,Finance,Financial Analyst,107948,16,4.6,True,2019
+EMP0235,Sales,Account Executive,84203,10,3.7,False,2019
+EMP0236,Finance,Accountant,60057,3,3.7,True,2019
+EMP0237,Marketing,Content Strategist,59534,7,4.1,False,2021
+EMP0238,Finance,Accountant,50534,2,2.3,True,2022
+EMP0239,Customer Support,Support Manager,62447,18,3.2,False,2019
+EMP0240,Engineering,Engineering Manager,104494,12,3.6,True,2020
+EMP0241,Customer Support,Senior Support Agent,55045,13,3.3,True,2024
+EMP0242,Engineering,Tech Lead,58511,1,3.7,False,2024
+EMP0243,Sales,Sales Manager,95071,16,3.1,False,2021
+EMP0244,HR,HR Coordinator,44506,7,4.0,True,2017
+EMP0245,Marketing,Marketing Analyst,83067,15,3.4,True,2019
+EMP0246,Engineering,Tech Lead,111910,16,3.9,True,2022
+EMP0247,Finance,Accountant,92350,15,4.1,False,2024
+EMP0248,Operations,COO,59440,7,4.1,True,2020
+EMP0249,Operations,COO,49428,2,4.0,True,2020
+EMP0250,Sales,Sales Manager,77580,11,3.4,True,2017

@@ -1,0 +1,501 @@
+date,region,category,product,units_sold,unit_price,revenue,discount_pct,profit_margin
+2023-10-17,North,Electronics,Laptop,16,910.54,14568.64,0,13.2
+2023-11-24,South,Home & Garden,Desk Lamp,3,74.95,224.85,0,11.5
+2023-06-02,West,Home & Garden,Desk Lamp,46,71.74,2805.03,15,33.9
+2022-08-14,West,Sports,Jump Rope,1,80.37,64.3,20,37.8
+2022-12-15,West,Food & Beverage,Protein Bar,49,12.54,614.46,0,11.8
+2022-04-10,North,Food & Beverage,Green Tea,3,26.13,66.63,15,25.0
+2023-01-23,East,Electronics,Smart Watch,41,408.36,15068.48,10,40.8
+2023-08-15,North,Clothing,Winter Jacket,15,27.33,327.96,20,18.7
+2022-08-27,East,Electronics,Tablet,41,391.33,12835.62,20,21.5
+2022-12-30,South,Clothing,Jeans,44,132.29,4947.65,15,10.6
+2023-07-01,South,Clothing,Running Shoes,18,93.96,1437.59,15,33.5
+2023-12-03,East,Food & Beverage,Coffee Blend,3,13.02,31.25,20,19.7
+2022-03-09,West,Clothing,Dress,21,160.22,3364.62,0,32.3
+2023-10-21,East,Sports,Dumbbells,16,77.25,1050.6,15,28.8
+2023-08-22,North,Sports,Jump Rope,15,108.86,1632.9,0,26.9
+2022-02-18,West,Electronics,Smartphone,44,782.74,32718.53,5,30.1
+2023-01-26,North,Home & Garden,Wall Clock,36,68.2,1964.16,20,42.9
+2023-11-30,South,Home & Garden,Plant Pot,22,94.55,2080.1,0,18.9
+2023-04-10,North,Electronics,Headphones,49,1168.51,57256.99,0,26.8
+2023-10-03,North,Food & Beverage,Granola,10,26.31,263.1,0,36.2
+2023-09-06,South,Food & Beverage,Energy Drink,24,5.68,109.06,20,37.9
+2022-03-01,North,Clothing,Dress,6,171.51,874.7,15,26.0
+2023-06-30,West,Clothing,Running Shoes,36,125.56,4520.16,0,17.8
+2022-08-05,West,Home & Garden,Bookshelf,26,88.42,1954.08,15,32.0
+2023-06-14,South,Sports,Yoga Mat,5,73.26,366.3,0,8.8
+2023-08-26,North,Clothing,Winter Jacket,41,31.36,1285.76,0,16.5
+2022-12-05,South,Electronics,Smart Watch,43,346.57,14157.38,5,15.9
+2023-08-08,North,Home & Garden,Wall Clock,31,36.73,910.9,20,23.1
+2022-04-10,North,Sports,Cycling Helmet,30,114.54,2748.96,20,35.0
+2022-03-04,West,Sports,Cycling Helmet,7,203.14,1421.98,0,15.1
+2022-05-24,West,Sports,Dumbbells,16,80.46,1029.89,20,42.2
+2023-07-18,North,Electronics,Laptop,35,810.4,22691.2,20,8.5
+2022-08-31,North,Clothing,T-Shirt,14,97.7,1094.24,20,22.8
+2022-06-18,East,Sports,Yoga Mat,17,246.55,3353.08,20,37.0
+2023-03-10,North,Home & Garden,Wall Clock,19,27.03,513.57,0,43.8
+2022-11-18,North,Electronics,Laptop,33,734.28,19384.99,20,27.7
+2023-06-05,West,Electronics,Smartphone,5,156.74,666.14,15,39.9
+2022-05-03,East,Home & Garden,Bookshelf,3,73.68,198.94,10,11.0
+2022-09-25,East,Clothing,Jeans,26,58.19,1512.94,0,32.9
+2023-04-14,North,Food & Beverage,Coffee Blend,40,5.33,191.88,10,44.9
+2023-07-05,East,Clothing,Dress,23,62.43,1435.89,0,40.5
+2022-10-19,North,Clothing,T-Shirt,46,153.4,7056.4,0,30.6
+2023-11-15,North,Home & Garden,Plant Pot,7,112.49,787.43,0,17.8
+2023-07-21,East,Clothing,Jeans,14,65.08,774.45,15,20.7
+2023-06-02,East,Sports,Cycling Helmet,4,227.75,911.0,0,31.5
+2022-02-15,West,Electronics,Headphones,41,943.65,38689.65,0,14.0
+2023-07-19,North,Sports,Jump Rope,5,17.27,73.4,15,41.4
+2023-01-14,North,Home & Garden,Cushion Set,9,26.29,236.61,0,19.4
+2023-01-02,West,Clothing,Running Shoes,23,126.71,2331.46,20,28.7
+2023-09-28,East,Clothing,Running Shoes,12,158.34,1805.08,5,8.9
+2023-02-26,North,Clothing,Jeans,45,45.47,2046.15,0,22.2
+2023-04-27,South,Clothing,Running Shoes,30,150.65,4519.5,0,19.3
+2022-08-17,East,Electronics,Smartphone,18,526.28,7578.43,20,10.6
+2022-12-26,North,Home & Garden,Wall Clock,35,84.75,2966.25,0,42.8
+2022-09-25,West,Clothing,Dress,17,174.01,2958.17,0,12.0
+2022-12-20,South,Food & Beverage,Energy Drink,33,26.22,865.26,0,22.3
+2022-09-18,South,Electronics,Tablet,35,81.89,2436.23,15,34.6
+2023-01-08,North,Sports,Yoga Mat,22,237.99,4712.2,10,19.6
+2022-11-04,South,Home & Garden,Plant Pot,21,83.36,1663.03,5,33.8
+2022-07-16,West,Sports,Tennis Racket,12,174.17,1881.04,10,29.1
+2023-07-16,East,Electronics,Headphones,28,401.34,8990.02,20,29.5
+2023-04-22,South,Sports,Tennis Racket,33,173.77,5447.69,5,37.4
+2023-11-06,South,Electronics,Headphones,41,657.31,24254.74,10,20.4
+2023-11-20,West,Food & Beverage,Protein Bar,10,33.23,332.3,0,9.7
+2023-09-18,West,Electronics,Tablet,41,544.17,20079.87,10,15.2
+2023-05-22,North,Sports,Dumbbells,45,49.68,2235.6,0,41.0
+2023-03-12,South,Clothing,Running Shoes,45,148.66,6020.73,10,25.2
+2022-05-05,East,Sports,Dumbbells,43,203.33,7868.87,10,44.6
+2023-03-30,West,Home & Garden,Cushion Set,36,56.94,1947.35,5,41.2
+2023-04-06,West,Food & Beverage,Protein Bar,18,34.4,495.36,20,36.8
+2023-10-04,East,Clothing,Jeans,46,90.38,4157.48,0,16.7
+2022-11-24,South,Home & Garden,Desk Lamp,15,25.22,359.38,5,33.7
+2022-03-07,West,Sports,Tennis Racket,30,92.76,2643.66,5,10.3
+2023-02-03,North,Home & Garden,Desk Lamp,49,104.24,4596.98,10,22.1
+2022-12-27,South,Food & Beverage,Energy Drink,27,34.87,847.34,10,35.7
+2023-05-15,West,Clothing,Jeans,2,89.73,170.49,5,20.4
+2022-06-19,North,Sports,Dumbbells,35,245.47,8591.45,0,41.6
+2022-03-27,East,Sports,Dumbbells,12,218.71,2624.52,0,17.6
+2022-08-05,West,Sports,Cycling Helmet,25,94.31,2357.75,0,35.8
+2022-09-16,East,Electronics,Tablet,35,101.71,3559.85,0,45.0
+2022-08-18,South,Electronics,Laptop,16,924.74,14795.84,0,39.1
+2022-09-02,East,Clothing,T-Shirt,37,127.11,4703.07,0,25.2
+2023-01-13,South,Clothing,Dress,48,117.16,4780.13,15,12.2
+2022-11-15,West,Electronics,Smart Watch,20,108.76,1957.68,10,33.1
+2023-02-11,East,Clothing,Winter Jacket,41,114.74,4704.34,0,11.8
+2023-12-02,West,Home & Garden,Desk Lamp,37,97.58,2888.37,20,9.5
+2023-11-09,West,Food & Beverage,Coffee Blend,22,22.71,499.62,0,39.4
+2022-04-19,South,Sports,Cycling Helmet,30,164.36,4191.18,15,13.7
+2023-06-19,West,Food & Beverage,Granola,35,33.29,932.12,20,25.9
+2023-08-30,South,Food & Beverage,Green Tea,6,34.81,208.86,0,40.6
+2023-04-21,East,Home & Garden,Cushion Set,22,83.5,1837.0,0,26.3
+2022-07-06,East,Sports,Dumbbells,17,98.38,1672.46,0,18.3
+2023-07-24,West,Electronics,Smart Watch,6,1141.83,6850.98,0,34.6
+2023-07-23,North,Clothing,T-Shirt,32,123.34,3749.54,5,37.3
+2022-10-29,West,Clothing,T-Shirt,20,130.69,2221.73,15,29.5
+2023-07-21,West,Home & Garden,Plant Pot,48,56.81,2454.19,10,20.2
+2022-10-05,South,Food & Beverage,Green Tea,47,13.07,614.29,0,19.7
+2022-07-16,East,Clothing,T-Shirt,38,64.24,1952.9,20,27.4
+2022-04-13,South,Clothing,Jeans,12,56.4,676.8,0,8.5
+2022-10-08,West,Electronics,Laptop,45,699.76,31489.2,0,31.6
+2022-04-16,North,Electronics,Smart Watch,31,398.46,11734.65,5,20.6
+2022-09-16,North,Sports,Yoga Mat,26,208.2,5142.54,5,10.7
+2022-06-05,West,Clothing,Dress,6,171.86,1031.16,0,12.4
+2023-09-13,West,Home & Garden,Cushion Set,34,34.83,1125.01,5,24.7
+2022-11-01,North,Home & Garden,Wall Clock,40,43.59,1743.6,0,30.6
+2022-08-01,North,Clothing,Jeans,11,125.67,1382.37,0,14.4
+2022-06-10,South,Electronics,Tablet,39,584.56,21657.95,5,18.8
+2022-10-23,South,Food & Beverage,Energy Drink,15,7.49,112.35,0,37.1
+2023-03-12,North,Electronics,Smart Watch,10,331.79,3317.9,0,38.6
+2022-03-03,West,Clothing,Jeans,37,115.21,4262.77,0,24.2
+2023-12-07,North,Food & Beverage,Energy Drink,33,37.99,1128.3,10,26.3
+2023-09-05,South,Electronics,Tablet,39,902.68,35204.52,0,9.0
+2023-11-22,North,Home & Garden,Cushion Set,49,114.59,4772.67,15,38.4
+2022-06-29,West,Sports,Jump Rope,18,168.1,3025.8,0,44.9
+2023-10-13,North,Sports,Yoga Mat,27,125.45,3387.15,0,19.9
+2022-06-14,North,Food & Beverage,Energy Drink,19,29.28,472.87,15,43.0
+2023-04-11,North,Electronics,Headphones,8,362.69,2321.22,20,23.0
+2023-11-05,West,Home & Garden,Wall Clock,13,55.46,648.88,10,21.4
+2023-10-03,West,Sports,Yoga Mat,36,62.84,2262.24,0,42.3
+2023-12-17,South,Sports,Yoga Mat,41,21.78,803.68,10,37.6
+2022-11-15,North,Home & Garden,Desk Lamp,6,70.75,424.5,0,44.7
+2023-04-18,East,Electronics,Smartphone,46,638.18,29356.28,0,26.8
+2023-03-02,South,Sports,Tennis Racket,36,72.28,2602.08,0,22.2
+2022-03-13,East,Food & Beverage,Energy Drink,33,16.9,557.7,0,38.4
+2022-11-02,West,Home & Garden,Cushion Set,32,119.88,3068.93,20,13.5
+2022-12-20,South,Food & Beverage,Granola,25,31.7,752.88,5,42.5
+2023-12-16,West,Clothing,Dress,50,81.28,3860.8,5,9.6
+2023-12-24,North,Sports,Tennis Racket,42,247.28,10385.76,0,26.3
+2022-05-10,North,Home & Garden,Cushion Set,7,46.52,260.51,20,39.3
+2023-06-23,South,Sports,Yoga Mat,27,184.77,3991.03,20,32.2
+2022-03-18,East,Sports,Cycling Helmet,45,94.56,4042.44,5,32.0
+2023-11-22,West,Home & Garden,Wall Clock,41,114.96,4006.36,15,40.8
+2023-07-09,South,Electronics,Smart Watch,41,156.63,5458.56,15,42.1
+2022-04-03,South,Sports,Yoga Mat,46,193.69,7127.79,20,11.7
+2023-12-12,West,Food & Beverage,Coffee Blend,4,6.61,26.44,0,21.3
+2022-05-30,South,Clothing,Dress,44,85.93,3024.74,20,14.7
+2022-03-22,South,Home & Garden,Wall Clock,16,78.17,1188.18,5,41.8
+2022-08-26,West,Sports,Cycling Helmet,43,123.0,5289.0,0,41.3
+2022-10-22,West,Home & Garden,Bookshelf,23,18.12,375.08,10,19.1
+2023-12-08,North,Food & Beverage,Energy Drink,13,34.59,427.19,5,39.6
+2022-08-31,West,Sports,Jump Rope,19,99.36,1604.66,15,18.9
+2022-10-09,West,Electronics,Smart Watch,50,1048.88,44577.4,15,44.0
+2022-10-21,East,Clothing,Dress,15,148.31,1890.95,15,15.0
+2023-11-26,West,Clothing,Winter Jacket,42,164.54,6910.68,0,19.4
+2022-02-04,West,Home & Garden,Plant Pot,6,90.56,543.36,0,20.1
+2022-06-29,East,Clothing,Running Shoes,24,145.84,3150.14,10,26.6
+2022-06-18,North,Food & Beverage,Energy Drink,19,38.86,627.59,15,40.2
+2023-04-25,West,Electronics,Smartphone,15,924.65,11095.8,20,33.0
+2023-07-25,West,Food & Beverage,Coffee Blend,1,32.67,32.67,0,27.9
+2023-01-13,South,Food & Beverage,Granola,41,18.34,751.94,0,12.0
+2023-04-28,South,Electronics,Smart Watch,36,1070.34,38532.24,0,41.9
+2023-10-26,South,Electronics,Tablet,20,1098.51,18674.67,15,23.1
+2022-02-16,South,Electronics,Headphones,8,1195.44,9563.52,0,16.7
+2023-02-02,West,Sports,Cycling Helmet,48,172.56,7040.45,15,43.0
+2023-08-25,East,Clothing,T-Shirt,32,124.79,3593.95,10,23.1
+2022-02-03,East,Food & Beverage,Protein Bar,16,20.52,262.66,20,21.4
+2023-07-12,West,Food & Beverage,Coffee Blend,13,18.93,246.09,0,43.1
+2022-04-04,South,Clothing,Dress,4,175.37,561.18,20,20.3
+2023-08-02,South,Clothing,Winter Jacket,36,152.77,5499.72,0,29.7
+2022-12-03,South,Clothing,Dress,10,20.45,204.5,0,28.0
+2022-04-23,South,Electronics,Smartphone,16,96.64,1391.62,10,20.0
+2022-09-29,West,Electronics,Smartphone,34,910.72,30964.48,0,35.6
+2023-04-05,North,Food & Beverage,Granola,29,25.78,672.86,10,16.2
+2023-11-06,West,Home & Garden,Plant Pot,2,60.38,120.76,0,44.9
+2023-03-13,East,Electronics,Tablet,29,877.89,25458.81,0,41.3
+2023-09-15,East,Clothing,Winter Jacket,40,40.19,1366.46,15,29.7
+2023-01-26,North,Home & Garden,Cushion Set,33,42.44,1260.47,10,23.9
+2023-11-02,West,Home & Garden,Bookshelf,15,57.31,816.67,5,20.5
+2023-02-13,South,Sports,Yoga Mat,21,88.45,1578.83,15,17.4
+2023-12-05,East,Sports,Yoga Mat,6,36.44,218.64,0,24.0
+2022-05-14,North,Home & Garden,Desk Lamp,36,74.51,2414.12,10,20.2
+2023-02-25,East,Food & Beverage,Energy Drink,47,35.38,1662.86,0,43.8
+2022-12-27,North,Electronics,Smart Watch,10,648.3,5510.55,15,25.8
+2022-12-25,West,Home & Garden,Plant Pot,18,22.64,366.77,10,16.4
+2023-07-29,East,Home & Garden,Cushion Set,36,84.25,3033.0,0,30.5
+2022-01-30,South,Clothing,Jeans,20,132.43,2648.6,0,21.0
+2022-05-27,North,Home & Garden,Wall Clock,48,17.65,720.12,15,44.0
+2023-06-28,East,Clothing,T-Shirt,22,87.17,1917.74,0,21.7
+2023-08-05,North,Home & Garden,Desk Lamp,10,107.17,1071.7,0,35.9
+2023-11-22,West,Electronics,Headphones,28,576.29,15329.31,5,30.5
+2022-10-07,West,Clothing,Dress,28,38.21,1069.88,0,18.5
+2023-06-24,East,Food & Beverage,Coffee Blend,39,12.72,496.08,0,8.3
+2022-08-05,West,Clothing,Jeans,8,66.31,530.48,0,26.4
+2022-06-29,East,Clothing,T-Shirt,15,105.21,1420.33,10,28.7
+2022-03-15,West,Sports,Yoga Mat,30,117.51,3525.3,0,39.9
+2023-08-11,South,Sports,Tennis Racket,26,83.04,2159.04,0,43.7
+2023-09-25,West,Sports,Cycling Helmet,7,35.71,249.97,0,24.1
+2023-06-21,South,Electronics,Tablet,48,1054.99,50639.52,0,16.2
+2022-03-20,South,Home & Garden,Desk Lamp,13,68.37,711.05,20,20.9
+2022-08-30,North,Electronics,Smartphone,12,366.68,3960.14,10,13.7
+2022-07-01,East,Sports,Tennis Racket,49,192.29,8479.99,10,24.6
+2023-10-05,East,Food & Beverage,Protein Bar,31,20.39,600.49,5,31.4
+2023-08-29,North,Electronics,Headphones,20,648.22,12316.18,5,24.7
+2023-01-13,West,Food & Beverage,Coffee Blend,6,27.56,148.82,10,30.0
+2023-04-19,South,Home & Garden,Cushion Set,48,114.97,5518.56,0,24.6
+2022-11-26,East,Home & Garden,Wall Clock,4,65.15,247.57,5,11.8
+2022-03-28,South,Home & Garden,Bookshelf,46,14.31,625.35,5,44.7
+2023-01-08,North,Food & Beverage,Green Tea,50,18.56,928.0,0,33.1
+2023-10-09,East,Food & Beverage,Coffee Blend,36,16.54,506.12,15,22.3
+2023-11-04,East,Home & Garden,Bookshelf,38,46.67,1507.44,15,13.2
+2022-11-14,East,Sports,Dumbbells,6,154.83,928.98,0,28.7
+2022-05-11,East,Home & Garden,Desk Lamp,28,81.06,2042.71,10,21.4
+2022-11-13,South,Clothing,Running Shoes,50,74.68,3547.3,5,15.1
+2022-06-08,North,Electronics,Headphones,7,1025.76,6462.29,10,36.5
+2023-11-09,South,Food & Beverage,Granola,25,9.59,239.75,0,14.0
+2023-03-25,East,Electronics,Tablet,47,488.02,22936.94,0,43.9
+2023-04-05,West,Clothing,Dress,31,58.27,1445.1,20,15.2
+2023-04-18,South,Food & Beverage,Energy Drink,27,22.6,610.2,0,38.2
+2022-09-14,North,Electronics,Tablet,36,1059.01,38124.36,0,34.3
+2022-10-19,North,Electronics,Smartphone,33,385.53,12722.49,0,38.7
+2022-08-16,East,Sports,Cycling Helmet,27,233.66,6308.82,0,22.7
+2022-08-30,East,Sports,Yoga Mat,2,103.1,206.2,0,42.4
+2022-05-30,West,Clothing,Winter Jacket,31,65.9,1736.47,15,38.8
+2023-04-05,South,Home & Garden,Desk Lamp,2,109.64,219.28,0,16.0
+2023-07-16,North,Home & Garden,Cushion Set,50,56.56,2828.0,0,16.8
+2022-02-18,West,Clothing,T-Shirt,40,122.23,4644.74,5,10.3
+2023-09-04,East,Home & Garden,Desk Lamp,37,79.52,2942.24,0,34.6
+2023-03-16,North,Electronics,Smart Watch,37,475.15,16701.52,5,14.9
+2023-06-21,North,Food & Beverage,Coffee Blend,35,38.37,1208.65,10,37.1
+2023-02-04,East,Sports,Yoga Mat,24,164.38,3945.12,0,35.7
+2022-03-11,East,Food & Beverage,Protein Bar,41,30.65,1256.65,0,36.5
+2022-05-17,West,Electronics,Headphones,42,691.54,29044.68,0,38.7
+2023-12-14,West,Sports,Dumbbells,5,205.7,874.23,15,36.7
+2022-02-07,East,Food & Beverage,Protein Bar,13,6.53,84.89,0,19.7
+2023-06-12,East,Sports,Jump Rope,3,126.25,303.0,20,31.9
+2023-01-01,West,Electronics,Headphones,24,386.0,8800.8,5,40.9
+2023-01-31,East,Food & Beverage,Protein Bar,32,22.37,715.84,0,42.2
+2022-03-26,North,Sports,Yoga Mat,12,116.19,1254.85,10,18.9
+2022-03-23,West,Food & Beverage,Green Tea,39,15.73,521.45,15,23.8
+2022-12-26,East,Sports,Yoga Mat,23,185.8,3846.06,10,44.9
+2023-10-17,South,Electronics,Laptop,26,831.73,21624.98,0,27.0
+2022-02-01,South,Clothing,Dress,29,128.49,3726.21,0,12.7
+2023-10-23,West,Food & Beverage,Green Tea,37,18.4,680.8,0,30.4
+2023-01-15,West,Food & Beverage,Energy Drink,37,31.71,1173.27,0,27.6
+2022-11-18,West,Food & Beverage,Protein Bar,2,38.62,65.65,15,14.9
+2023-07-30,East,Electronics,Headphones,46,947.96,41425.85,5,15.9
+2023-12-12,West,Sports,Dumbbells,5,43.82,208.14,5,14.4
+2022-03-31,East,Food & Beverage,Green Tea,36,29.83,966.49,10,18.7
+2022-06-11,South,Clothing,Jeans,8,101.4,811.2,0,37.3
+2023-05-21,South,Electronics,Headphones,24,700.5,15971.4,5,37.7
+2023-09-19,West,Electronics,Laptop,46,426.41,16672.63,15,25.7
+2023-02-24,West,Home & Garden,Desk Lamp,21,23.79,424.65,15,10.7
+2023-11-28,South,Home & Garden,Plant Pot,50,24.12,1085.4,10,31.7
+2022-05-13,South,Sports,Jump Rope,4,229.02,732.86,20,12.6
+2022-11-08,East,Clothing,Running Shoes,46,71.63,3294.98,0,20.8
+2022-03-22,East,Food & Beverage,Protein Bar,36,27.23,980.28,0,12.6
+2023-09-22,South,Home & Garden,Desk Lamp,11,65.28,646.27,10,42.8
+2022-06-25,North,Home & Garden,Cushion Set,37,47.14,1744.18,0,38.5
+2022-03-25,North,Electronics,Smart Watch,14,376.41,4215.79,20,29.2
+2023-05-25,West,Home & Garden,Plant Pot,20,80.61,1531.59,5,17.1
+2022-11-01,West,Sports,Yoga Mat,11,176.82,1847.77,5,23.4
+2022-07-28,East,Food & Beverage,Granola,46,10.03,461.38,0,35.2
+2023-02-13,North,Clothing,Jeans,7,102.4,716.8,0,16.9
+2022-10-01,West,Sports,Dumbbells,4,48.11,192.44,0,43.0
+2022-09-12,South,Clothing,Jeans,47,169.4,7961.8,0,15.0
+2023-05-26,West,Home & Garden,Wall Clock,20,64.86,1232.34,5,8.9
+2023-06-02,West,Sports,Dumbbells,23,65.56,1507.88,0,9.9
+2023-09-04,East,Sports,Cycling Helmet,7,141.12,938.45,5,13.0
+2023-01-10,East,Sports,Cycling Helmet,4,25.63,92.27,10,28.8
+2023-07-21,North,Food & Beverage,Coffee Blend,29,18.52,429.66,20,28.3
+2022-05-12,South,Electronics,Tablet,22,497.98,9860.0,10,42.7
+2022-07-23,East,Home & Garden,Cushion Set,3,54.15,162.45,0,9.4
+2023-05-01,East,Home & Garden,Wall Clock,33,26.38,870.54,0,20.1
+2022-06-16,West,Sports,Jump Rope,20,188.74,3397.32,10,20.4
+2023-12-27,North,Home & Garden,Plant Pot,2,62.24,124.48,0,20.3
+2023-03-03,North,Home & Garden,Plant Pot,47,97.64,3671.26,20,33.5
+2023-09-04,North,Sports,Cycling Helmet,50,242.26,10901.7,10,29.4
+2023-08-21,West,Sports,Dumbbells,47,138.19,5845.44,10,36.7
+2022-06-01,West,Clothing,Winter Jacket,45,111.61,5022.45,0,15.1
+2022-11-18,West,Sports,Dumbbells,14,112.05,1490.26,5,26.6
+2022-03-05,West,Clothing,Dress,21,53.17,949.08,15,25.7
+2022-11-18,East,Clothing,T-Shirt,22,165.94,3285.61,10,21.1
+2023-09-17,East,Sports,Dumbbells,18,239.97,3887.51,10,19.0
+2022-10-23,East,Clothing,T-Shirt,23,70.73,1464.11,10,42.5
+2022-10-22,South,Electronics,Smart Watch,25,837.82,19898.22,5,38.3
+2022-10-25,East,Electronics,Headphones,6,1149.95,6899.7,0,42.2
+2023-05-06,South,Clothing,Running Shoes,18,152.47,2470.01,10,33.8
+2022-04-22,South,Home & Garden,Cushion Set,4,36.32,123.49,15,41.5
+2023-10-16,South,Clothing,Winter Jacket,22,36.03,673.76,15,25.5
+2022-01-06,East,Home & Garden,Bookshelf,31,54.76,1612.68,5,32.1
+2022-11-25,North,Food & Beverage,Coffee Blend,6,36.78,187.58,15,29.2
+2022-06-29,West,Sports,Dumbbells,3,234.47,562.73,20,22.7
+2022-07-10,East,Food & Beverage,Coffee Blend,37,5.32,177.16,10,12.0
+2022-10-19,East,Sports,Jump Rope,9,138.21,995.11,20,26.7
+2022-07-17,South,Electronics,Headphones,30,261.99,6680.75,15,17.5
+2022-01-15,West,Food & Beverage,Green Tea,49,24.87,1218.63,0,14.5
+2023-03-14,South,Home & Garden,Plant Pot,43,19.54,840.22,0,14.8
+2023-05-04,East,Food & Beverage,Protein Bar,25,5.24,131.0,0,24.5
+2022-12-04,South,Food & Beverage,Granola,1,30.3,30.3,0,32.2
+2022-03-05,East,Electronics,Tablet,26,423.62,9362.0,15,26.6
+2023-12-08,West,Electronics,Headphones,15,491.65,7374.75,0,43.4
+2022-06-06,South,Sports,Jump Rope,45,102.8,4163.4,10,41.8
+2022-09-11,North,Home & Garden,Desk Lamp,34,67.81,1959.71,15,21.4
+2022-03-05,West,Home & Garden,Cushion Set,35,32.24,1128.4,0,14.1
+2022-04-30,West,Clothing,Dress,33,98.21,3078.88,5,37.9
+2022-05-16,East,Home & Garden,Wall Clock,4,60.25,216.9,10,25.1
+2022-01-23,North,Sports,Cycling Helmet,48,206.87,9929.76,0,29.4
+2023-03-10,West,Food & Beverage,Coffee Blend,4,23.94,95.76,0,44.5
+2022-02-02,West,Food & Beverage,Energy Drink,9,11.3,81.36,20,31.7
+2023-01-19,South,Sports,Tennis Racket,25,219.36,5209.8,5,11.0
+2023-11-01,South,Food & Beverage,Coffee Blend,35,11.25,374.06,5,27.6
+2022-01-04,West,Electronics,Headphones,47,598.56,25319.09,10,23.7
+2022-08-24,North,Clothing,T-Shirt,18,75.39,1357.02,0,42.7
+2022-02-02,North,Sports,Jump Rope,2,195.02,390.04,0,15.6
+2023-09-01,North,Electronics,Tablet,46,749.52,27582.34,20,9.8
+2023-02-16,South,Sports,Dumbbells,49,141.84,5560.13,20,36.7
+2023-05-31,East,Food & Beverage,Protein Bar,47,33.55,1419.16,10,19.8
+2022-08-31,East,Food & Beverage,Protein Bar,34,39.5,1343.0,0,23.3
+2022-03-04,West,Home & Garden,Cushion Set,12,106.77,1089.05,15,33.1
+2022-02-18,South,Food & Beverage,Energy Drink,21,32.5,580.12,15,23.4
+2022-11-04,East,Sports,Dumbbells,31,192.29,5960.99,0,39.4
+2023-12-26,South,Clothing,T-Shirt,36,166.36,5689.51,5,43.8
+2023-02-02,East,Clothing,Jeans,42,52.53,2206.26,0,42.1
+2022-04-05,North,Home & Garden,Bookshelf,25,15.67,332.99,15,30.4
+2022-03-16,East,Clothing,Dress,36,135.89,4892.04,0,25.7
+2022-11-07,West,Electronics,Smartphone,48,1129.62,54221.76,0,35.6
+2022-09-06,East,Home & Garden,Bookshelf,16,53.63,772.27,10,19.9
+2023-01-25,West,Sports,Jump Rope,20,167.45,3349.0,0,21.3
+2023-04-23,West,Electronics,Tablet,21,933.02,19593.42,0,21.7
+2022-02-16,West,Home & Garden,Bookshelf,2,91.54,183.08,0,28.5
+2022-10-30,West,Clothing,Running Shoes,25,72.78,1637.55,10,38.8
+2023-07-18,West,Food & Beverage,Green Tea,32,31.72,862.78,15,31.7
+2023-04-17,North,Clothing,Jeans,47,47.08,1991.48,10,26.1
+2023-06-21,West,Electronics,Laptop,43,1138.61,48960.23,0,36.3
+2022-05-21,East,Clothing,Winter Jacket,1,133.15,133.15,0,26.7
+2022-03-03,West,Home & Garden,Cushion Set,43,110.4,4509.84,5,8.6
+2022-01-13,West,Electronics,Smart Watch,35,888.86,31110.1,0,8.6
+2022-07-03,East,Electronics,Laptop,16,667.31,10676.96,0,30.9
+2022-12-29,South,Food & Beverage,Energy Drink,26,7.77,191.92,5,28.9
+2022-11-04,North,Electronics,Laptop,25,184.72,4387.1,5,28.4
+2023-10-15,North,Electronics,Smartphone,28,172.61,4108.12,15,37.0
+2023-06-25,North,Electronics,Smartphone,45,316.79,12830.0,10,25.6
+2022-03-18,East,Food & Beverage,Granola,3,24.72,74.16,0,42.4
+2022-01-17,North,Clothing,Dress,46,43.07,1584.98,20,22.7
+2022-11-03,East,Clothing,Dress,25,58.48,1242.7,15,41.2
+2023-01-29,South,Clothing,Winter Jacket,23,100.13,2302.99,0,11.6
+2022-03-19,East,Food & Beverage,Granola,39,31.92,1182.64,5,43.9
+2022-01-31,West,Food & Beverage,Energy Drink,23,22.17,458.92,10,42.8
+2022-07-10,North,Home & Garden,Wall Clock,40,19.43,777.2,0,37.5
+2022-03-26,East,Food & Beverage,Protein Bar,41,18.3,750.3,0,35.4
+2023-01-05,East,Electronics,Laptop,20,85.82,1630.58,5,21.3
+2022-04-15,West,Clothing,Winter Jacket,29,49.98,1304.48,10,28.5
+2022-04-16,East,Electronics,Laptop,6,476.38,2572.45,10,30.1
+2023-01-30,South,Electronics,Headphones,50,543.47,27173.5,0,34.8
+2023-08-09,East,Home & Garden,Bookshelf,11,85.38,939.18,0,18.0
+2023-05-20,North,Clothing,Winter Jacket,18,46.75,799.42,5,19.1
+2023-01-05,West,Food & Beverage,Protein Bar,32,30.23,870.62,10,30.8
+2022-04-20,West,Clothing,Jeans,26,21.08,548.08,0,39.1
+2022-12-04,East,Sports,Cycling Helmet,42,116.19,4391.98,10,13.0
+2023-09-10,West,Clothing,T-Shirt,26,70.27,1827.02,0,18.8
+2023-08-13,South,Clothing,Jeans,26,80.17,2084.42,0,12.2
+2023-08-30,West,Home & Garden,Bookshelf,36,84.99,3059.64,0,43.3
+2023-12-27,West,Clothing,T-Shirt,45,147.63,6643.35,0,38.3
+2023-11-21,West,Sports,Dumbbells,16,163.83,2621.28,0,32.4
+2023-01-22,West,Electronics,Tablet,31,1189.58,33189.28,10,22.8
+2023-07-11,North,Electronics,Headphones,35,865.83,27273.65,10,31.6
+2022-04-22,West,Clothing,Jeans,40,46.61,1864.4,0,28.8
+2022-12-06,South,Sports,Yoga Mat,17,17.48,297.16,0,26.9
+2023-04-02,South,Food & Beverage,Energy Drink,44,21.21,839.92,10,33.5
+2022-12-20,South,Electronics,Tablet,27,197.1,5321.7,0,12.3
+2022-12-23,West,Food & Beverage,Green Tea,14,20.94,263.84,10,25.9
+2022-04-10,North,Sports,Tennis Racket,20,89.94,1798.8,0,38.0
+2022-01-24,South,Food & Beverage,Coffee Blend,11,28.7,268.34,15,17.0
+2023-07-20,South,Clothing,Jeans,30,109.58,3287.4,0,37.5
+2022-07-10,West,Sports,Tennis Racket,40,21.86,874.4,0,24.6
+2023-02-03,North,Electronics,Smartphone,49,310.48,12931.49,15,37.9
+2023-08-15,East,Electronics,Smart Watch,21,289.4,6077.4,0,24.9
+2023-11-18,West,Sports,Jump Rope,21,241.99,4573.61,10,22.4
+2023-08-25,East,Electronics,Headphones,30,474.22,12803.94,10,14.4
+2023-09-22,North,Home & Garden,Desk Lamp,21,83.93,1762.53,0,16.8
+2022-07-07,West,Food & Beverage,Protein Bar,27,22.88,555.98,10,13.1
+2023-03-10,South,Clothing,T-Shirt,45,121.68,4654.26,15,42.4
+2023-07-23,North,Clothing,T-Shirt,12,66.21,794.52,0,39.2
+2023-01-03,West,Electronics,Tablet,25,232.92,5240.7,10,26.7
+2023-02-23,North,Sports,Tennis Racket,29,181.88,5010.79,5,14.2
+2022-08-14,West,Food & Beverage,Coffee Blend,35,14.62,511.7,0,14.2
+2023-08-03,East,Sports,Jump Rope,37,135.04,4996.48,0,17.9
+2023-07-10,South,Electronics,Tablet,28,691.92,19373.76,0,35.2
+2022-11-01,North,Electronics,Tablet,6,374.35,2133.8,5,40.0
+2022-08-31,South,Clothing,Dress,46,130.26,5392.76,10,31.4
+2023-09-23,East,Clothing,Running Shoes,4,150.16,540.58,10,21.0
+2023-09-04,East,Home & Garden,Bookshelf,46,45.6,2097.6,0,18.7
+2023-06-11,South,Electronics,Smartphone,27,1158.3,31274.1,0,44.7
+2023-12-20,West,Clothing,Running Shoes,21,43.4,729.12,20,17.2
+2023-05-17,North,Clothing,Dress,41,121.18,4719.96,5,21.9
+2023-10-11,East,Electronics,Tablet,18,657.49,10059.6,15,42.6
+2023-04-11,West,Sports,Cycling Helmet,50,151.76,6070.4,20,35.1
+2023-10-13,South,Food & Beverage,Coffee Blend,26,32.85,854.1,0,43.8
+2023-05-22,West,Food & Beverage,Green Tea,22,33.99,673.0,10,29.4
+2022-12-18,South,Electronics,Laptop,30,191.52,5745.6,0,12.6
+2023-03-28,South,Sports,Yoga Mat,28,248.08,6946.24,0,44.8
+2023-10-28,East,Food & Beverage,Protein Bar,18,35.6,640.8,0,32.2
+2022-03-26,South,Food & Beverage,Protein Bar,41,6.81,279.21,0,34.9
+2023-03-16,South,Electronics,Laptop,31,81.22,2517.82,0,12.9
+2023-06-16,West,Sports,Yoga Mat,22,16.89,297.26,20,12.5
+2023-12-12,North,Clothing,T-Shirt,25,31.33,783.25,0,35.0
+2022-04-16,South,Food & Beverage,Green Tea,9,35.83,306.35,5,36.6
+2023-10-19,West,Clothing,Winter Jacket,1,104.88,94.39,10,32.1
+2022-12-26,South,Clothing,Running Shoes,40,167.18,5684.12,15,24.4
+2022-03-30,West,Electronics,Smartphone,38,922.74,29804.5,15,22.2
+2022-11-19,East,Clothing,Running Shoes,6,64.31,385.86,0,28.5
+2023-12-09,West,Electronics,Headphones,39,310.1,10884.51,10,15.0
+2022-10-30,North,Electronics,Smartphone,8,634.27,5074.16,0,26.5
+2023-06-25,West,Electronics,Headphones,9,1126.0,9627.3,5,39.9
+2023-01-10,North,Home & Garden,Bookshelf,50,93.9,4695.0,0,8.6
+2022-01-15,East,Food & Beverage,Protein Bar,4,6.39,20.45,20,22.7
+2023-10-06,South,Home & Garden,Wall Clock,26,56.59,1471.34,0,31.7
+2022-10-12,East,Electronics,Headphones,14,168.5,1887.2,20,13.7
+2023-02-05,South,Home & Garden,Desk Lamp,28,44.12,1050.06,15,43.3
+2022-03-01,North,Clothing,Winter Jacket,8,167.94,1276.34,5,30.7
+2022-11-13,West,Clothing,Winter Jacket,9,22.03,168.53,15,8.4
+2022-12-22,South,Home & Garden,Cushion Set,47,96.13,4518.11,0,14.2
+2022-10-03,East,Electronics,Laptop,28,455.21,12745.88,0,27.4
+2023-12-31,South,Home & Garden,Desk Lamp,33,64.58,2131.14,0,10.1
+2023-01-12,South,Clothing,Jeans,37,143.73,4520.31,15,34.7
+2023-06-06,East,Electronics,Laptop,1,1041.73,1041.73,0,9.7
+2023-01-28,West,Clothing,Running Shoes,3,168.99,456.27,10,37.7
+2022-08-18,North,Food & Beverage,Protein Bar,47,19.57,919.79,0,18.0
+2023-08-09,North,Food & Beverage,Coffee Blend,4,22.57,90.28,0,16.3
+2023-02-15,North,Electronics,Tablet,50,1049.96,41998.4,20,19.5
+2023-07-21,South,Sports,Yoga Mat,19,101.7,1739.07,10,37.0
+2023-04-21,South,Food & Beverage,Granola,50,39.02,1560.8,20,15.2
+2022-06-04,North,Electronics,Tablet,35,106.78,3737.3,0,31.5
+2022-12-10,South,Electronics,Tablet,47,1030.89,48451.83,0,11.8
+2023-03-06,North,Sports,Yoga Mat,10,243.55,2070.17,15,18.4
+2022-08-26,North,Home & Garden,Wall Clock,24,87.09,1985.65,5,44.1
+2023-08-18,North,Electronics,Smart Watch,26,229.54,5968.04,0,29.9
+2023-03-22,East,Clothing,Running Shoes,21,66.67,1120.06,20,22.5
+2022-11-22,North,Sports,Cycling Helmet,13,69.9,908.7,0,36.9
+2022-06-09,East,Electronics,Smartphone,21,583.51,11641.02,5,12.5
+2022-08-01,East,Sports,Cycling Helmet,8,123.89,991.12,0,13.8
+2023-12-23,South,Home & Garden,Desk Lamp,21,33.65,706.65,0,11.4
+2022-12-31,South,Sports,Jump Rope,20,26.5,530.0,0,38.3
+2022-02-01,North,Sports,Tennis Racket,36,145.65,5243.4,0,11.5
+2022-05-24,West,Electronics,Laptop,50,149.07,7453.5,0,12.8
+2023-01-17,South,Electronics,Smart Watch,5,736.45,3682.25,0,44.9
+2023-10-24,West,Sports,Dumbbells,22,36.61,805.42,0,9.6
+2022-02-21,West,Clothing,Dress,47,89.31,3987.69,5,26.4
+2023-12-01,South,Sports,Dumbbells,12,98.18,1178.16,0,18.4
+2022-02-05,West,Home & Garden,Cushion Set,42,77.87,3270.54,0,26.5
+2022-03-04,South,Electronics,Headphones,27,508.98,13742.46,0,31.8
+2023-10-08,West,Home & Garden,Desk Lamp,46,118.83,5466.18,0,25.7
+2022-12-19,South,Home & Garden,Cushion Set,18,45.38,816.84,0,9.0
+2022-01-31,South,Food & Beverage,Coffee Blend,31,33.3,929.07,10,21.2
+2022-06-13,North,Electronics,Smartphone,18,815.69,13214.18,10,38.2
+2022-08-13,East,Home & Garden,Wall Clock,12,49.03,588.36,0,16.8
+2023-12-16,South,Food & Beverage,Granola,45,5.99,269.55,0,43.1
+2023-07-31,North,Clothing,T-Shirt,12,106.74,1216.84,5,9.4
+2022-08-27,South,Home & Garden,Bookshelf,31,12.19,377.89,0,20.3
+2022-05-14,South,Food & Beverage,Protein Bar,21,37.16,780.36,0,8.8
+2022-04-24,West,Home & Garden,Plant Pot,24,115.66,2359.46,15,42.9
+2023-08-24,West,Electronics,Headphones,9,417.98,3761.82,0,35.1
+2023-10-17,East,Sports,Cycling Helmet,36,55.94,1711.76,15,40.9
+2022-08-17,South,Home & Garden,Bookshelf,47,51.62,2062.22,15,18.9
+2022-01-02,East,Home & Garden,Wall Clock,50,103.58,4661.1,10,9.2
+2023-09-19,North,Clothing,Dress,32,36.66,1173.12,0,20.3
+2022-09-01,East,Food & Beverage,Green Tea,6,10.88,52.22,20,34.2
+2023-04-03,North,Electronics,Headphones,45,314.85,14168.25,0,21.0
+2022-01-02,West,Electronics,Tablet,27,570.81,15411.87,0,40.7
+2023-01-23,South,Food & Beverage,Granola,31,18.14,449.87,20,40.0
+2022-06-16,East,Sports,Yoga Mat,3,202.81,608.43,0,8.7
+2022-04-18,North,Electronics,Headphones,25,270.52,6763.0,0,35.1
+2022-12-13,South,Home & Garden,Cushion Set,46,108.25,4979.5,0,24.0
+2023-09-14,West,Sports,Dumbbells,22,27.59,606.98,0,44.1
+2023-12-15,North,Home & Garden,Cushion Set,19,39.18,744.42,0,16.8
+2023-02-07,West,Home & Garden,Cushion Set,10,102.38,1023.8,0,21.4
+2022-03-31,East,Food & Beverage,Granola,7,21.81,152.67,0,15.7
+2022-03-25,East,Sports,Yoga Mat,26,87.46,2160.26,5,26.1
+2022-04-04,North,Home & Garden,Wall Clock,25,30.34,758.5,0,14.9
+2022-09-27,North,Sports,Tennis Racket,18,76.9,1245.78,10,10.3
+2022-03-29,North,Food & Beverage,Granola,49,19.49,859.51,10,16.4
+2023-02-01,South,Home & Garden,Wall Clock,44,116.22,4090.94,20,42.6
+2023-05-03,South,Food & Beverage,Coffee Blend,46,18.82,865.72,0,26.6
+2022-05-04,South,Sports,Dumbbells,11,238.03,2618.33,0,37.9
+2022-02-13,South,Sports,Yoga Mat,28,247.25,6923.0,0,44.9
+2023-09-02,West,Food & Beverage,Green Tea,5,36.88,184.4,0,22.4
+2023-07-20,West,Food & Beverage,Green Tea,1,23.19,18.55,20,33.9
+2022-04-26,North,Sports,Dumbbells,38,49.83,1704.19,10,36.1
+2022-04-19,East,Home & Garden,Desk Lamp,35,96.43,3375.05,0,40.5
+2023-01-28,South,Sports,Jump Rope,3,158.11,474.33,0,18.2
+2023-09-26,West,Home & Garden,Wall Clock,22,14.27,266.85,15,16.8
+2022-10-03,West,Food & Beverage,Coffee Blend,20,16.83,336.6,0,18.4
+2023-12-14,East,Electronics,Smartphone,48,230.51,10511.26,5,36.6
+2022-10-03,West,Sports,Jump Rope,13,166.71,2058.87,5,15.8
+2023-05-12,East,Home & Garden,Plant Pot,33,100.31,2648.18,20,13.9
+2023-12-28,South,Home & Garden,Wall Clock,34,24.92,762.55,10,9.1
+2022-07-25,East,Electronics,Smartphone,4,117.04,468.16,0,34.1
+2023-01-13,East,Sports,Jump Rope,8,108.28,736.3,15,9.1
+2023-05-16,East,Home & Garden,Wall Clock,31,29.53,823.89,10,28.4
+2022-06-17,South,Food & Beverage,Coffee Blend,25,14.98,374.5,0,14.0
+2022-08-15,North,Clothing,Running Shoes,27,63.05,1532.12,10,8.7
+2023-05-01,East,Clothing,Running Shoes,1,116.18,116.18,0,17.3
+2023-12-31,West,Food & Beverage,Energy Drink,23,36.34,794.03,5,17.3
+2022-11-06,East,Home & Garden,Cushion Set,7,53.69,375.83,0,26.9
+2023-07-29,East,Home & Garden,Cushion Set,44,41.09,1807.96,0,25.8
+2022-10-11,South,Food & Beverage,Green Tea,46,14.14,552.87,15,19.1
+2023-06-14,South,Clothing,Winter Jacket,39,148.87,5515.63,5,32.4
+2022-01-27,North,Sports,Cycling Helmet,27,75.97,1948.63,5,22.4
+2023-08-21,West,Home & Garden,Bookshelf,46,47.75,2196.5,0,33.4
+2023-11-19,South,Food & Beverage,Granola,11,15.51,136.49,20,32.3
