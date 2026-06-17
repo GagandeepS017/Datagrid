@@ -1,6 +1,7 @@
 import { useRef, useState, useEffect } from 'react'
 import axios from 'axios'
 import Sidebar from './Sidebar'
+import { API_BASE } from '../config'
 
 const SAMPLE_ICONS = { retail_sales: '🛍️', hr_employees: '👥', ecommerce_orders: '📦' }
 
@@ -154,6 +155,15 @@ export default function FileUpload({ onUploadSuccess }) {
                   </svg>
                   {error}
                 </div>
+              )}
+
+              {API_BASE && (
+                <p className="mt-3 flex items-center gap-2 text-xs text-slate-400">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} className="w-3.5 h-3.5 shrink-0">
+                    <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+                  </svg>
+                  First request after a while may take up to a minute while the free backend wakes up.
+                </p>
               )}
             </div>
 
