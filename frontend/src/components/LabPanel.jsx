@@ -63,10 +63,10 @@ function SyntheticTab({ tableId, tableName, state, setState, onApplyResult }) {
   const baseName = tableName?.replace(/^t_/, '') ?? 'dataset'
 
   return (
-    <div className="space-y-6">
-      <div>
-        <h2 className="text-base font-semibold text-slate-800">Synthetic Data Generator</h2>
-        <p className="text-sm text-slate-500 mt-1">
+    <div className="space-y-8">
+      <div className="pb-4 border-b border-slate-100">
+        <h2 className="text-lg font-semibold text-slate-800">Synthetic Data Generator</h2>
+        <p className="text-sm text-slate-500 mt-1.5 max-w-2xl">
           Generate synthetic rows that statistically mirror your dataset: same distributions,
           value frequencies, and ranges. Safe to share; contains no real records.
         </p>
@@ -201,7 +201,7 @@ function WhatIfTab({ tableId, state, setState, onApplyResult }) {
       const { data } = await axios.post('/api/lab/whatif', { table_id: tableId, scenario })
       set({ result: data })
     } catch (err) {
-      set({ error: err.response?.data?.detail ?? 'What-If analysis failed.' })
+      set({ error: err.response?.data?.detail ?? 'Scenario analysis failed.' })
     } finally {
       setLoading(false)
     }
@@ -224,10 +224,10 @@ function WhatIfTab({ tableId, state, setState, onApplyResult }) {
   }
 
   return (
-    <div className="space-y-6">
-      <div>
-        <h2 className="text-base font-semibold text-slate-800">What-If Simulator</h2>
-        <p className="text-sm text-slate-500 mt-1">
+    <div className="space-y-8">
+      <div className="pb-4 border-b border-slate-100">
+        <h2 className="text-lg font-semibold text-slate-800">Scenario Simulator</h2>
+        <p className="text-sm text-slate-500 mt-1.5 max-w-2xl">
           Describe a change in plain English. Claude transforms your data to simulate the scenario, then apply it as a new dataset or download it.
         </p>
       </div>
@@ -326,10 +326,10 @@ export default function LabPanel({ table, labState, setLabState, onApplyResult }
 
   return (
     <div className="flex-1 overflow-y-auto">
-      <div className="flex gap-1 mb-6 border-b border-slate-200 pb-0">
+      <div className="flex gap-1 mb-8 border-b border-slate-200 pb-0">
         {[
           { key: 'synthetic', label: 'Synthetic Data' },
-          { key: 'whatif',    label: 'What-If'         },
+          { key: 'whatif',    label: 'Scenarios'       },
         ].map(({ key, label }) => (
           <button
             key={key} onClick={() => setTab(key)}

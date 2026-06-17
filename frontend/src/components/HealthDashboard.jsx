@@ -288,10 +288,8 @@ export default function HealthDashboard({ profile, onProceed, onLab, onReset }) 
         <header className="bg-white border-b border-slate-200 px-6 py-3 flex items-center justify-between shrink-0">
           <div className="flex items-center gap-2 text-sm text-slate-500">
             <span className="font-semibold text-slate-800">DataGrid</span>
-            <span className="text-slate-300">|</span>
-            <span>Health Report</span>
-            <span className="text-slate-300">|</span>
-            <span className="text-blue-600 font-medium">Phase 2</span>
+            <span className="text-slate-300">/</span>
+            <span className="text-blue-600 font-medium">Health Report</span>
           </div>
           <div className="flex items-center gap-2">
             <button
@@ -311,18 +309,16 @@ export default function HealthDashboard({ profile, onProceed, onLab, onReset }) 
         </header>
 
         {/* Scrollable content */}
-        <div className="flex-1 overflow-y-auto px-6 py-6 space-y-5">
+        <div className="flex-1 overflow-y-auto px-8 py-8 space-y-8">
 
           {/* Page title */}
           <div>
-            <h1 className="text-2xl font-bold text-slate-800">
-              Data Health Report <span className="text-slate-400 font-normal">/ Phase 2</span>
-            </h1>
-            <p className="text-sm text-slate-500 mt-0.5">Automated Exploratory Data Analysis & Quality Audit</p>
+            <h1 className="text-2xl font-bold text-slate-800">Data Health Report</h1>
+            <p className="text-sm text-slate-500 mt-1">Automated exploratory data analysis and quality audit</p>
           </div>
 
           {/* Summary chips */}
-          <div className="grid grid-cols-4 gap-3">
+          <div className="grid grid-cols-4 gap-4">
             {[
               { label: 'Rows',           value: summary.rows.toLocaleString(),       warn: false },
               { label: 'Columns',        value: summary.columns,                     warn: false },
@@ -337,14 +333,17 @@ export default function HealthDashboard({ profile, onProceed, onLab, onReset }) 
           </div>
 
           {/* Row 1: Insights + Alerts */}
-          <div className="grid grid-cols-5 gap-5">
-            <div className="col-span-3">
-              <ClaudeInsights insights={insights} />
+          <section>
+            <h2 className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-3">AI Summary</h2>
+            <div className="grid grid-cols-5 gap-6">
+              <div className="col-span-3">
+                <ClaudeInsights insights={insights} />
+              </div>
+              <div className="col-span-2">
+                <QualityAlerts abnormalColumns={abnormal_columns} fixes={insights?.fixes} />
+              </div>
             </div>
-            <div className="col-span-2">
-              <QualityAlerts abnormalColumns={abnormal_columns} fixes={insights?.fixes} />
-            </div>
-          </div>
+          </section>
 
           {/* Row 2: Flagged columns (only if any) */}
           {abnormal_columns?.length > 0 && (
@@ -361,13 +360,19 @@ export default function HealthDashboard({ profile, onProceed, onLab, onReset }) 
           )}
 
           {/* Row 3: Missing heatmap + Column distribution */}
-          <div className="grid grid-cols-2 gap-5">
-            <MissingValuesChart matrix={missing_value_matrix} totalRows={summary.rows} />
-            <ColumnDistribution abnormalColumns={abnormal_columns} />
-          </div>
+          <section>
+            <h2 className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-3">Distributions</h2>
+            <div className="grid grid-cols-2 gap-6">
+              <MissingValuesChart matrix={missing_value_matrix} totalRows={summary.rows} />
+              <ColumnDistribution abnormalColumns={abnormal_columns} />
+            </div>
+          </section>
 
-          {/* Row 3: Correlation matrix */}
-          <CorrelationMatrix matrix={correlation_matrix} />
+          {/* Row 4: Correlation matrix */}
+          <section>
+            <h2 className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-3">Relationships</h2>
+            <CorrelationMatrix matrix={correlation_matrix} />
+          </section>
 
         </div>
       </div>
