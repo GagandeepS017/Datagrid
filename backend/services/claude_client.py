@@ -23,7 +23,7 @@ Columns:
 Sample rows:
 {samples}
 
-Return ONLY this JSON object — no markdown, no explanation:
+Return ONLY this JSON object, no markdown, no explanation:
 {{
   "sql": "<the SELECT query>",
   "chart": {{"type": "bar"|"line"|"pie", "x": "<col>", "y": "<col>"}} or null
@@ -36,7 +36,7 @@ SQL rules:
 Chart rules:
 - "bar": grouping/counting/summing by a categorical column (x = category, y = numeric)
 - "line": x-axis is a date, time, or sequential number
-- "pie": proportions or share — only when result will have ≤ 10 rows
+- "pie": proportions or share, only when the result has 10 or fewer rows
 - null: raw data dumps, multi-column results, or anything that doesn't suit a chart
 
 Question: {question}"""
@@ -70,7 +70,7 @@ def generate_sql(question: str, schema: dict, error_feedback: str | None = None)
             raise ValueError("Empty SQL in response")
         return {"sql": sql, "chart": chart}
     except (json.JSONDecodeError, ValueError):
-        # Fallback: treat whole response as raw SQL (no chart)
+        # Treat the whole response as raw SQL with no chart.
         sql = raw
         if "```sql" in sql:
             sql = sql.split("```sql", 1)[1].split("```", 1)[0]

@@ -1,9 +1,9 @@
-# DataGrid — MLflow UI launcher.
+# DataGrid MLflow UI launcher.
 # Opens the experiment-tracking dashboard for the NL->SQL eval harness.
 # Usage:  .\mlflow-ui.ps1   then open http://localhost:5000
 #
-# Note: MLflow 3.x disables the file store unless MLFLOW_ALLOW_FILE_STORE=true,
-# so this script sets it for you — that's the step that's easy to miss manually.
+# MLflow 3.x disables the file store unless MLFLOW_ALLOW_FILE_STORE=true, so this
+# script sets it for you. That is the step that is easy to miss manually.
 
 Write-Host "Starting MLflow UI..." -ForegroundColor Cyan
 

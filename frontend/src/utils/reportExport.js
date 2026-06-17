@@ -29,7 +29,7 @@ function corrHeatmap(matrix) {
   const bodyRows = matrix.matrix.map((row, i) => {
     const cells = row.map((v, j) => {
       const bg   = corrColor(i === j ? 1 : v)
-      const text = i === j ? '1.00' : (v === null ? '—' : Number(v).toFixed(2))
+      const text = i === j ? '1.00' : (v === null ? '-' : Number(v).toFixed(2))
       const dark = i === j || Math.abs(v ?? 0) > 0.6
       return `<td style="padding:6px 4px;text-align:center;background:${bg};color:${dark ? '#1e293b' : '#475569'};font-size:11px;font-weight:${Math.abs(v ?? 0) > 0.75 ? '700' : '400'};border:1px solid #f1f5f9">${text}</td>`
     }).join('')
@@ -81,7 +81,7 @@ export function downloadReport(profile, tableName = 'dataset') {
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>DataGrid Health Report — ${esc(tableName)}</title>
+<title>DataGrid Health Report - ${esc(tableName)}</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 14px; color: #1e293b; background: #fff; padding: 40px; max-width: 960px; margin: 0 auto; }
@@ -114,12 +114,12 @@ export function downloadReport(profile, tableName = 'dataset') {
   <div class="chip ${summary.outliers_flagged > 0 ? 'warn' : ''}"><div class="chip-val">${summary.outliers_flagged}</div><div class="chip-lbl">Outliers Flagged</div></div>
 </div>
 
-<h2>Claude's Quality Insights — Excellences</h2>
+<h2>Quality Insights: Excellences</h2>
 <table class="data">
   <tbody>${insightRows(insights?.excellences, '#059669')}</tbody>
 </table>
 
-<h2>Claude's Quality Insights — Issues</h2>
+<h2>Quality Insights: Issues</h2>
 <table class="data">
   <tbody>${insightRows(insights?.major_issues, '#dc2626')}</tbody>
 </table>

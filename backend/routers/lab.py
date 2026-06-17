@@ -33,9 +33,9 @@ Sample rows:
 
 Scenario: {scenario}
 
-Return ONLY this JSON — no markdown, no explanation:
+Return ONLY this JSON, no markdown, no explanation:
 {{
-  "sql": "<SELECT query applying the transformation — keep all original columns, transform as needed>",
+  "sql": "<SELECT query applying the transformation, keep all original columns, transform as needed>",
   "narrative": "<1-2 sentences describing what changed and what the result represents>"
 }}
 
@@ -161,8 +161,6 @@ def run_whatif(req: WhatIfRequest):
         row_count=len(rows),
     )
 
-
-# ── Apply endpoints ───────────────────────────────────────────────────────────
 
 class ApplyWhatIfRequest(BaseModel):
     table_id: str

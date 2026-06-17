@@ -6,14 +6,11 @@ import pandas as pd
 from services.schema import infer_schema
 
 
-# ── Independent (per-column) sampling ─────────────────────────────────────────
-
 def synthesize_independent(df: pd.DataFrame, n: int) -> pd.DataFrame:
-    """Generate n synthetic rows by sampling each column INDEPENDENTLY.
+    """Generate n synthetic rows by sampling each column independently.
 
-    Preserves every column's marginal distribution but NOT the relationships
-    between columns (all inter-column correlations collapse to ~0). Fast, no
-    heavy dependencies. Kept as a baseline/fallback for the copula method.
+    Preserves each column's marginal distribution but not the relationships
+    between columns. Fast, no heavy dependencies.
     """
     if n < 1 or n > 10_000:
         raise ValueError("n must be between 1 and 10,000")
@@ -51,32 +48,31 @@ def synthesize_independent(df: pd.DataFrame, n: int) -> pd.DataFrame:
             spans  = rng.random(n) * (ts_max - ts_min) + ts_min
             result[name] = [pd.Timestamp(s, unit="s").isoformat() for s in spans]
 
-        else:  # text / categorical
+        else:
             freqs = col.value_counts(normalize=True)
             result[name] = rng.choice(freqs.index.tolist(), size=n, p=freqs.values.tolist()).tolist()
 
     return pd.DataFrame(result)
 
 
-# Backwards-compatible alias (was the original public name).
+# Original public name, kept for compatibility.
 synthesize = synthesize_independent
 
 
-# ── Gaussian Copula sampling (SDV) ────────────────────────────────────────────
-
 def _build_metadata(df: pd.DataFrame):
-    """Detect SDV metadata, down-typing any auto-detected 'id' columns to
-    categorical so high-cardinality/unique columns don't break sampling."""
+    """Detect SDV metadata and re-type any 'id' columns to categorical.
+
+    GaussianCopula enforces uniqueness on the 'id' sdtype, which fails when
+    sampling more rows than the column's value space allows.
+    """
     try:
         from sdv.metadata import SingleTableMetadata
         md = SingleTableMetadata()
         md.detect_from_dataframe(df)
-    except ImportError:  # very new SDV that dropped SingleTableMetadata
+    except ImportError:
         from sdv.metadata import Metadata
         md = Metadata.detect_from_dataframe(df)
 
-    # Re-type id columns: GaussianCopula enforces uniqueness on 'id' sdtype,
-    # which fails when sampling more rows than the column's value space allows.
     columns = getattr(md, "columns", {}) or {}
     for col_name, spec in list(columns.items()):
         sdtype = spec.get("sdtype") if isinstance(spec, dict) else None
@@ -91,37 +87,32 @@ def _build_metadata(df: pd.DataFrame):
 def synthesize_copula(df: pd.DataFrame, n: int) -> pd.DataFrame:
     """Generate n synthetic rows with SDV's GaussianCopulaSynthesizer.
 
-    Fits a Gaussian copula over the source DataFrame — preserving each column's
-    marginal AND the joint correlation structure between columns. Raises on any
-    failure (missing dependency, unmodelable column, fit error); the caller is
-    expected to fall back to synthesize_independent.
+    Preserves each column's marginal and the joint correlation structure between
+    columns. Raises on failure; the caller falls back to synthesize_independent.
     """
     if n < 1 or n > 10_000:
         raise ValueError("n must be between 1 and 10,000")
 
     from sdv.single_table import GaussianCopulaSynthesizer
 
-    metadata  = _build_metadata(df)
-    synth     = GaussianCopulaSynthesizer(metadata)
+    metadata = _build_metadata(df)
+    synth    = GaussianCopulaSynthesizer(metadata)
     synth.fit(df)
     return synth.sample(num_rows=n)
 
 
-# ── Quality metric ────────────────────────────────────────────────────────────
-
 def correlation_fidelity(original: pd.DataFrame, synthetic: pd.DataFrame) -> dict | None:
-    """Compare the Pearson correlation matrices of the original vs synthetic data.
+    """Compare Pearson correlation matrices of original vs synthetic data.
 
-    Returns the mean absolute difference of the off-diagonal correlations
-    (corr_mae, lower is better) plus a 0..1 similarity convenience score.
-    None if there are fewer than 2 shared numeric columns to correlate.
+    Returns the mean absolute difference of off-diagonal correlations (lower is
+    better) plus a 0..1 similarity score. None if fewer than 2 numeric columns.
     """
     num_cols = original.select_dtypes(include=[np.number]).columns
     common   = [c for c in num_cols if c in synthetic.columns]
     if len(common) < 2:
         return None
 
-    orig = original[common].apply(pd.to_numeric, errors="coerce")
+    orig  = original[common].apply(pd.to_numeric, errors="coerce")
     synth = synthetic[common].apply(pd.to_numeric, errors="coerce")
 
     corr_o = orig.corr()
@@ -142,14 +133,8 @@ def correlation_fidelity(original: pd.DataFrame, synthetic: pd.DataFrame) -> dic
     }
 
 
-# ── Serialization helper ──────────────────────────────────────────────────────
-
 def to_jsonable_rows(df: pd.DataFrame) -> tuple[list[str], list[list]]:
-    """Convert a DataFrame to (columns, rows) with JSON-safe Python scalars.
-
-    Handles numpy scalars, pandas Timestamps, and NaN/NaT -> None so both the
-    independent and copula outputs serialize cleanly through FastAPI.
-    """
+    """Convert a DataFrame to (columns, rows) with JSON-safe Python scalars."""
     safe = df.copy()
     for col in safe.columns:
         if pd.api.types.is_datetime64_any_dtype(safe[col]):
@@ -165,7 +150,7 @@ def to_jsonable_rows(df: pd.DataFrame) -> tuple[list[str], list[list]]:
                 row.append(None)
             elif isinstance(v, pd.Timestamp):
                 row.append(v.isoformat() if pd.notnull(v) else None)
-            elif hasattr(v, "item"):       # numpy scalar -> python native
+            elif hasattr(v, "item"):
                 row.append(v.item())
             else:
                 row.append(v)

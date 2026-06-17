@@ -54,12 +54,10 @@ export default function App() {
     onLab:     table   ? () => setStage('lab')       : null,
   }
 
-  // ── Upload ────────────────────────────────────────────────────────────────
   if (stage === 'upload') {
     return <FileUpload onUploadSuccess={handleUploadSuccess} />
   }
 
-  // ── Profiling spinner ─────────────────────────────────────────────────────
   if (stage === 'profiling') {
     return (
       <div className="flex h-full w-full overflow-hidden bg-slate-100">
@@ -75,7 +73,6 @@ export default function App() {
     )
   }
 
-  // ── Health dashboard ──────────────────────────────────────────────────────
   if (stage === 'dashboard') {
     return (
       <HealthDashboard
@@ -87,7 +84,7 @@ export default function App() {
     )
   }
 
-  // ── Shared content wrapper (query + lab) ──────────────────────────────────
+  // Shared layout for the query and lab stages.
   const ContentShell = ({ active, children }) => (
     <div className="flex h-full w-full overflow-hidden bg-slate-100">
       <Sidebar activeItem={active} actions={nav} />
@@ -113,7 +110,6 @@ export default function App() {
     setStage('query')
   }
 
-  // ── Lab ───────────────────────────────────────────────────────────────────
   if (stage === 'lab') {
     return (
       <ContentShell active="lab">
@@ -122,7 +118,6 @@ export default function App() {
     )
   }
 
-  // ── Query ─────────────────────────────────────────────────────────────────
   return (
     <ContentShell active="analysis">
       <QueryChat tableId={table.table_id} history={queryHistory} setHistory={setQueryHistory} />

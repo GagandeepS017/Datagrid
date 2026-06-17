@@ -12,10 +12,10 @@ class EvalRunRequest(BaseModel):
 
 @router.post("/eval/run")
 def run_eval(req: EvalRunRequest = EvalRunRequest()):
-    """Run the full NL->SQL benchmark and return per-item results + aggregate metrics.
+    """Run the full NL->SQL benchmark and return per-item results plus aggregate metrics.
 
-    Note: this makes one Claude call per item (plus retries), so it is slow —
-    expect ~15-40s for the bundled 15-item benchmark.
+    Makes one Claude call per item (plus retries), so expect ~15-40s for the
+    bundled 15-item benchmark.
     """
     try:
         return run_benchmark(req.benchmark_file)

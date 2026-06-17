@@ -13,9 +13,9 @@ function isNumericCol(rows, colIdx) {
   return rows.slice(0, 10).some(r => r[colIdx] !== null && !isNaN(parseFloat(r[colIdx])))
 }
 
-// Resolve chart spec: prefer API-provided spec, fall back to shape-based detection
+// Prefer the API-provided spec, fall back to shape-based detection.
 function resolveSpec(chart, columns, rows) {
-  // Try API spec first — verify both columns exist in the result
+  // Use the API spec only if both of its columns exist in the result.
   if (chart && chart.type && chart.x && chart.y) {
     const xi = columns.indexOf(chart.x)
     const yi = columns.indexOf(chart.y)

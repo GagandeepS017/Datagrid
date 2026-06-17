@@ -1,15 +1,9 @@
 """Text-to-SQL evaluation harness.
 
-Measures how well the NL->SQL pipeline performs against a labeled benchmark.
-It WRAPS the production pipeline (generate_sql + execute_query) — it does not
-modify or replace it. The primary metric is EXECUTION ACCURACY: whether the
-predicted query and the gold query return the same result set (order-insensitive),
-not whether the SQL strings match.
-
-Per-item diagnostics: latency, whether the retry loop fired, and a failure
-category (syntax_error / wrong_result / empty_result / exception).
-
-Each run is also logged to a local MLflow file store (backend/mlruns/).
+Wraps the production pipeline (generate_sql + execute_query) and scores it
+against a labeled benchmark. The primary metric is execution accuracy: whether
+the predicted query and the gold query return the same result set, not whether
+the SQL strings match. Each run is logged to a local MLflow file store.
 """
 
 import json
@@ -29,12 +23,10 @@ from services.ingestion import parse_csv
 from services.schema import infer_schema, sample_rows
 from services.sql_engine import execute_query, register_temp_table, unregister_table
 
-try:  # MLflow is optional at import time so the harness still runs pre-install.
+try:
     import mlflow
-except ImportError:  # pragma: no cover
+except ImportError:
     mlflow = None
-
-# ── Paths ──────────────────────────────────────────────────────────────────────
 
 _BACKEND_DIR    = Path(__file__).parent.parent
 _SAMPLES_DIR    = _BACKEND_DIR / "data" / "samples"
@@ -45,33 +37,22 @@ _DEFAULT_BENCH  = "nl2sql_benchmark.json"
 
 _EVAL_RUNS_DIR.mkdir(parents=True, exist_ok=True)
 
-# ── Pipeline config (mirrors routers/query.py) ──────────────────────────────────
-
-_MAX_ATTEMPTS = 2              # query.py runs the generate->execute loop up to twice
+# Mirrors the retry loop in routers/query.py.
+_MAX_ATTEMPTS = 2
 _SQL_MODEL    = "claude-sonnet-4-6"
 
-# Rough cost estimate constants — APPROXIMATE, for relative comparison only.
-# generate_sql() does not surface token usage, so we estimate from text size.
-_USD_PER_INPUT_MTOK  = 3.0     # ~Sonnet input pricing per 1M tokens (estimate)
-_USD_PER_OUTPUT_MTOK = 15.0    # ~Sonnet output pricing per 1M tokens (estimate)
+# Approximate Sonnet pricing per 1M tokens, used for a rough cost estimate only.
+_USD_PER_INPUT_MTOK  = 3.0
+_USD_PER_OUTPUT_MTOK = 15.0
 _CHARS_PER_TOKEN     = 4.0
-_PROMPT_OVERHEAD_TOK = 320     # fixed instruction scaffold in _build_prompt
+_PROMPT_OVERHEAD_TOK = 320
 
-
-# ── Result-set comparison ────────────────────────────────────────────────────
-
-# Numeric cells are matched with an absolute tolerance rather than exact equality.
-# 0.01 is the standard execution-accuracy tolerance for aggregates: it treats
-# AVG(x) and ROUND(AVG(x), 2) as equal, and also absorbs the rounding-DIRECTION
-# difference between DuckDB's ROUND() and the comparator at a half-cent boundary
-# (e.g. 4.185 -> 4.19 vs 4.18). Genuinely wrong sums, counts, and averages — which
-# differ by far more than a cent — still fail.
+# Numeric cells are matched with an absolute tolerance so AVG(x) and
+# ROUND(AVG(x), 2) count as equal while genuinely wrong values still fail.
 _NUMERIC_EPS = 0.01
 
 
 def _canon_cell(v: Any):
-    """Canonicalize a single cell. Returns ('n', float) for numerics so the
-    matcher can apply tolerance, or a hashable key for exact-match cells."""
     if v is None:
         return None
     if isinstance(v, bool):
@@ -84,10 +65,9 @@ def _canon_cell(v: Any):
 
 
 def _split_row(row: list[Any]):
-    """Split a row into (sorted numeric values, sorted exact-match keys).
+    """Split a row into sorted numeric values and sorted exact-match keys.
 
-    Cells are sorted within the row so column order / aliasing differences don't
-    affect the comparison — we are checking "same data", not same layout.
+    Cells are sorted within the row so column order does not affect comparison.
     """
     nums: list[float] = []
     exact: list = []
@@ -105,17 +85,11 @@ def _rows_close(r1: list, r2: list, eps: float) -> bool:
     n2, e2 = _split_row(r2)
     if e1 != e2 or len(n1) != len(n2):
         return False
-    # +1e-9 slack so float representation error doesn't reject values that are
-    # exactly eps apart (e.g. abs(4.18 - 4.19) == 0.010000000000000231).
     return all(abs(a - b) <= eps + 1e-9 for a, b in zip(n1, n2))
 
 
 def results_match(pred_rows: list[list], gold_rows: list[list], eps: float = _NUMERIC_EPS) -> bool:
-    """Order-insensitive, duplicate-aware result-set equality with numeric tolerance.
-
-    Greedy row matching: every gold row must pair with a distinct predicted row
-    whose non-numeric cells are identical and whose numeric cells are within eps.
-    """
+    """Order-insensitive, duplicate-aware result-set equality with numeric tolerance."""
     if len(pred_rows) != len(gold_rows):
         return False
     remaining = list(gold_rows)
@@ -129,19 +103,14 @@ def results_match(pred_rows: list[list], gold_rows: list[list], eps: float = _NU
     return not remaining
 
 
-# ── Cost estimate ────────────────────────────────────────────────────────────
-
 def _estimate_cost(question: str, schema: dict, predicted_sql: str, attempts: int) -> float:
     schema_chars = len(json.dumps(schema, default=str))
     in_tok  = _PROMPT_OVERHEAD_TOK + (len(question) + schema_chars) / _CHARS_PER_TOKEN
     out_tok = (len(predicted_sql) + 40) / _CHARS_PER_TOKEN
-    # Retries re-send a similar prompt and produce another completion.
     in_tok  *= max(attempts, 1)
     out_tok *= max(attempts, 1)
     return (in_tok / 1e6) * _USD_PER_INPUT_MTOK + (out_tok / 1e6) * _USD_PER_OUTPUT_MTOK
 
-
-# ── Schema context (mirrors routers/query.py::_build_schema_context) ───────────
 
 def _build_schema_context(table_id: str, df: pd.DataFrame) -> dict:
     return {
@@ -150,8 +119,6 @@ def _build_schema_context(table_id: str, df: pd.DataFrame) -> dict:
         "sample_rows": sample_rows(df),
     }
 
-
-# ── Dataset loading (ephemeral, in-memory only) ───────────────────────────────
 
 def _load_datasets(dataset_files: dict[str, str]) -> dict[str, dict]:
     """Register each benchmark dataset once. Returns name -> {table_id, table_name, df}."""
@@ -167,10 +134,7 @@ def _load_datasets(dataset_files: dict[str, str]) -> dict[str, dict]:
     return registered
 
 
-# ── Single-item evaluation ─────────────────────────────────────────────────────
-
 def _evaluate_item(item: dict, ctx: dict) -> dict:
-    """Run one benchmark item end-to-end. ctx = {table_id, table_name, df}."""
     table_name = ctx["table_name"]
     schema     = _build_schema_context(ctx["table_id"], ctx["df"])
 
@@ -185,14 +149,13 @@ def _evaluate_item(item: dict, ctx: dict) -> dict:
         "retry_fired":   False,
         "latency_s":     0.0,
         "correct":       False,
-        "category":      None,           # None == correct
+        "category":      None,
         "pred_row_count": None,
         "gold_row_count": None,
         "error":         None,
         "est_cost_usd":  0.0,
     }
 
-    # --- Predicted path: mirror query.py's retry loop exactly ------------------
     start          = time.perf_counter()
     error_feedback = None
     pred_rows      = None
@@ -205,7 +168,7 @@ def _evaluate_item(item: dict, ctx: dict) -> dict:
         try:
             gen           = generate_sql(item["question"], schema, error_feedback=error_feedback)
             predicted_sql = gen["sql"]
-        except Exception as exc:  # API / parsing failure inside generate_sql
+        except Exception as exc:
             gen_error      = str(exc)
             error_feedback = gen_error
             continue
@@ -213,7 +176,7 @@ def _evaluate_item(item: dict, ctx: dict) -> dict:
             _, pred_rows = execute_query(predicted_sql)
             exec_error   = None
             break
-        except Exception as exc:   # bad SQL — feed error back and retry
+        except Exception as exc:
             exec_error     = str(exc)
             error_feedback = exec_error
 
@@ -222,17 +185,14 @@ def _evaluate_item(item: dict, ctx: dict) -> dict:
     result["retry_fired"]   = result["attempts"] > 1
     result["est_cost_usd"]  = round(_estimate_cost(item["question"], schema, predicted_sql or "", result["attempts"]), 6)
 
-    # --- Gold path (same sandbox) ---------------------------------------------
     try:
         _, gold_rows = execute_query(result["gold_sql"])
         result["gold_row_count"] = len(gold_rows)
     except Exception as exc:
-        # A failing gold query is a benchmark defect, not a model failure.
         result["category"] = "gold_failed"
         result["error"]    = f"gold SQL failed: {exc}"
         return result
 
-    # --- Categorize ------------------------------------------------------------
     if pred_rows is None:
         if predicted_sql is None and gen_error:
             result["category"] = "exception"
@@ -254,8 +214,6 @@ def _evaluate_item(item: dict, ctx: dict) -> dict:
 
     return result
 
-
-# ── Aggregation + MLflow ───────────────────────────────────────────────────────
 
 def _aggregate(items: list[dict]) -> dict:
     n = len(items)
@@ -288,9 +246,7 @@ def _log_to_mlflow(run: dict) -> str | None:
     if mlflow is None:
         return None
     try:
-        # MLflow >= 3 puts the local file store in maintenance mode unless this
-        # opt-in is set. We deliberately use the file store (no DB/server needed)
-        # per the harness's local-tracking design.
+        # MLflow 3+ requires this opt-in to use the local file store.
         os.environ.setdefault("MLFLOW_ALLOW_FILE_STORE", "true")
         mlflow.set_tracking_uri(f"file:{_MLRUNS_DIR.as_posix()}")
         mlflow.set_experiment("datagrid-nl2sql")
@@ -313,15 +269,13 @@ def _log_to_mlflow(run: dict) -> str | None:
                 mlflow.log_metric(f"accuracy_{diff}", d["accuracy"])
             mlflow.log_dict(run, "eval_run.json")
             return active.info.run_id
-    except Exception as exc:  # never let tracking break the eval
+    except Exception as exc:
         run.setdefault("warnings", []).append(f"MLflow logging failed: {exc}")
         return None
 
 
-# ── Public entrypoints ──────────────────────────────────────────────────────────
-
 def run_benchmark(benchmark_file: str = _DEFAULT_BENCH) -> dict:
-    """Run the full benchmark, persist + log the run, and return the result dict."""
+    """Run the full benchmark, persist and log the run, and return the result."""
     bench_path = _BENCHMARK_DIR / benchmark_file
     if not bench_path.exists():
         raise FileNotFoundError(f"Benchmark not found: {benchmark_file}")

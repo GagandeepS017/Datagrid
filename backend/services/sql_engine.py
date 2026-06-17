@@ -22,8 +22,6 @@ _FORBIDDEN = re.compile(
     re.IGNORECASE,
 )
 
-# ── Registry helpers ──────────────────────────────────────────────────────────
-
 def _load_registry() -> dict:
     if _REGISTRY.exists():
         try:
@@ -36,8 +34,6 @@ def _load_registry() -> dict:
 def _save_registry(reg: dict) -> None:
     _REGISTRY.write_text(json.dumps(reg, indent=2))
 
-
-# ── Startup: restore persisted tables ────────────────────────────────────────
 
 def _restore_tables() -> None:
     reg = _load_registry()
@@ -64,8 +60,6 @@ def _restore_tables() -> None:
 _restore_tables()
 
 
-# ── Public API ────────────────────────────────────────────────────────────────
-
 def register_table(table_id: str, df: pd.DataFrame, filename: str = "") -> str:
     safe_id    = table_id.replace("-", "_")
     table_name = f"t_{safe_id}"
@@ -74,7 +68,6 @@ def register_table(table_id: str, df: pd.DataFrame, filename: str = "") -> str:
         _tables[table_id] = df
         _conn.register(table_name, df)
 
-        # Persist to disk
         pkl_path = _DATA_DIR / f"{table_id}.pkl"
         with open(pkl_path, "wb") as fh:
             pickle.dump(df, fh)
@@ -122,11 +115,10 @@ def delete_table(table_id: str) -> None:
 
 
 def register_temp_table(table_id: str, df: pd.DataFrame) -> str:
-    """Register a DataFrame for in-memory querying only — NO disk persistence.
+    """Register a DataFrame for in-memory querying only, with no disk persistence.
 
-    Used by the evaluation harness so benchmark tables are queryable via
-    execute_query() without polluting registry.json or the recent-datasets UI.
-    Pair with unregister_table() for cleanup.
+    Used by the evaluation harness so benchmark tables are queryable without
+    touching registry.json or the recent-datasets list. Pair with unregister_table.
     """
     table_name = f"t_{table_id.replace('-', '_')}"
     with _lock:
@@ -167,8 +159,6 @@ def execute_query(sql: str) -> tuple[list[str], list[list[Any]]]:
 
     return list(result_df.columns), result_df.values.tolist()
 
-
-# ── Internal ──────────────────────────────────────────────────────────────────
 
 def _schema_lite(df: pd.DataFrame) -> list[dict]:
     from services.schema import infer_schema

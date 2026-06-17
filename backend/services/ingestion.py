@@ -21,7 +21,7 @@ _IMAGE_MEDIA_TYPES = {
 _OCR_PROMPT = (
     "Extract the table data from this image and return it as CSV.\n"
     "Rules:\n"
-    "- Output ONLY raw CSV — no explanation, no markdown fences.\n"
+    "- Output ONLY raw CSV, no explanation, no markdown fences.\n"
     "- First row must be the header.\n"
     "- If there are multiple tables, extract the largest one.\n"
     "- Use comma as delimiter. Quote fields that contain commas.\n"
@@ -39,7 +39,7 @@ def parse_csv(file_bytes: bytes) -> pd.DataFrame:
             continue
 
     if text is None:
-        raise ValueError("Could not decode file — unsupported encoding")
+        raise ValueError("Could not decode file, unsupported encoding")
 
     sample = text[:8192]
     try:
@@ -74,7 +74,7 @@ def parse_json(file_bytes: bytes) -> pd.DataFrame:
         # Fallback: treat the dict itself as a single-row table
         return pd.DataFrame([data])
 
-    raise ValueError("Unsupported JSON structure — expected an array or object.")
+    raise ValueError("Unsupported JSON structure, expected an array or object.")
 
 
 def parse_image(file_bytes: bytes, ext: str) -> pd.DataFrame:

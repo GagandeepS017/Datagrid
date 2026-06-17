@@ -20,7 +20,7 @@ You are a concise data analyst. The user asked: "{question}"
 The query returned {row_count} row(s) with columns: {columns}.
 First few rows: {preview}
 
-Write 2-3 sentences interpreting what this result means. Be specific — mention \
+Write 2-3 sentences interpreting what this result means. Be specific, mention \
 actual values, trends, or standout figures from the data. No preamble, no lists."""
 
 

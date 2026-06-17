@@ -6,7 +6,6 @@ import {
 import Sidebar from './Sidebar'
 import { downloadReport } from '../utils/reportExport'
 
-// ── Quality alert helpers ──────────────────────────────────────────────────────
 function alertMeta(col) {
   const issue = col.issue.toLowerCase()
   if (issue.includes('outlier'))
@@ -26,7 +25,6 @@ const ALERT_STYLE = {
   blue:  { border: 'border-blue-200  bg-blue-50',  icon: 'text-blue-500',  dot: 'bg-blue-400',  label: 'text-blue-800'  },
 }
 
-// ── Sections ──────────────────────────────────────────────────────────────────
 
 function ClaudeInsights({ insights }) {
   const items = [
@@ -275,7 +273,6 @@ function CorrelationMatrix({ matrix }) {
   )
 }
 
-// ── Main ──────────────────────────────────────────────────────────────────────
 export default function HealthDashboard({ profile, onProceed, onLab, onReset }) {
   if (!profile) return null
   const { summary, insights, abnormal_columns, correlation_matrix, missing_value_matrix } = profile

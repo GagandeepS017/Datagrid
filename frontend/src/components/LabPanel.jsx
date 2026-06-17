@@ -67,7 +67,7 @@ function SyntheticTab({ tableId, tableName, state, setState, onApplyResult }) {
       <div>
         <h2 className="text-base font-semibold text-slate-800">Synthetic Data Generator</h2>
         <p className="text-sm text-slate-500 mt-1">
-          Generate synthetic rows that statistically mirror your dataset — same distributions,
+          Generate synthetic rows that statistically mirror your dataset: same distributions,
           value frequencies, and ranges. Safe to share; contains no real records.
         </p>
       </div>
@@ -111,7 +111,7 @@ function SyntheticTab({ tableId, tableName, state, setState, onApplyResult }) {
       <p className="text-xs text-slate-400 -mt-3 max-w-2xl">
         <span className="font-medium text-slate-500">Gaussian Copula</span> preserves the joint distribution
         and inter-column correlations of your data. <span className="font-medium text-slate-500">Independent</span> samples
-        each column separately — faster, but relationships between columns are lost.
+        each column separately, faster but relationships between columns are lost.
       </p>
 
       {error && (
@@ -138,15 +138,15 @@ function SyntheticTab({ tableId, tableName, state, setState, onApplyResult }) {
                   {(result.fidelity.corr_similarity * 100).toFixed(1)}%
                 </span>
                 <span className="text-slate-400">
-                  (MAE {result.fidelity.corr_mae} over {result.fidelity.n_numeric_cols} numeric cols — lower is better)
+                  (MAE {result.fidelity.corr_mae} over {result.fidelity.n_numeric_cols} numeric cols, lower is better)
                 </span>
               </div>
             ) : (
-              <span className="text-xs text-slate-400">Correlation fidelity needs ≥2 numeric columns</span>
+              <span className="text-xs text-slate-400">Correlation fidelity needs 2 or more numeric columns</span>
             )}
           </div>
 
-          <p className="text-xs text-slate-400">{result.rows.length} synthetic rows generated — preview (first 20 shown)</p>
+          <p className="text-xs text-slate-400">{result.rows.length} synthetic rows generated, preview (first 20 shown)</p>
           <ResultTable columns={result.columns} rows={result.rows.slice(0, 20)} />
 
           <div className="flex items-center gap-3 pt-1 flex-wrap">
@@ -228,7 +228,7 @@ function WhatIfTab({ tableId, state, setState, onApplyResult }) {
       <div>
         <h2 className="text-base font-semibold text-slate-800">What-If Simulator</h2>
         <p className="text-sm text-slate-500 mt-1">
-          Describe a change in plain English. Claude transforms your data to simulate the scenario — then apply it as a new dataset or download it.
+          Describe a change in plain English. Claude transforms your data to simulate the scenario, then apply it as a new dataset or download it.
         </p>
       </div>
 
@@ -312,7 +312,7 @@ function WhatIfTab({ tableId, state, setState, onApplyResult }) {
           </details>
 
           <p className="text-xs text-slate-400">
-            "Apply as new dataset" saves this transformed table so you can query it — your original data is unchanged.
+            "Apply as new dataset" saves this transformed table so you can query it. Your original data is unchanged.
           </p>
         </div>
       )}

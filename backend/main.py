@@ -14,7 +14,7 @@ app = FastAPI(
     title="DataGrid API",
     version="1.0.0",
     description=(
-        "AI-powered analytics platform. Upload a CSV, then ask questions in plain English — "
+        "AI-powered analytics platform. Upload a CSV, then ask questions in plain English. "
         "Claude generates the SQL, DuckDB runs it, and results come back as structured data.\n\n"
         "**Workflow:** `POST /api/upload` → get `table_id` → `POST /api/query`\n\n"
         "**Schema inspection:** `GET /api/schema/{table_id}`"
@@ -36,7 +36,7 @@ app.add_middleware(
 )
 
 # Auto-discover every module in routers/ that exposes a `router` attribute.
-# Adding a new router file requires no changes here — just create the file.
+# Adding a new router file requires no changes here, just create the file.
 for _mod_info in pkgutil.iter_modules(_routers_pkg.__path__):
     _mod = importlib.import_module(f"routers.{_mod_info.name}")
     if hasattr(_mod, "router"):

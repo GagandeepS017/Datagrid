@@ -7,7 +7,6 @@ import anthropic
 
 _client = anthropic.Anthropic(api_key=os.environ.get("ANTHROPIC_API_KEY", ""))
 
-# ── Cramér's V ────────────────────────────────────────────────────────────────
 
 def _cramers_v(x: pd.Series, y: pd.Series) -> float:
     confusion = pd.crosstab(x.astype(str), y.astype(str))
@@ -18,12 +17,10 @@ def _cramers_v(x: pd.Series, y: pd.Series) -> float:
     return float(np.sqrt(chi2 / denom)) if denom > 0 else 0.0
 
 
-# ── Claude insights ───────────────────────────────────────────────────────────
-
 _INSIGHTS_PROMPT = """\
 You are a senior data analyst reviewing an automated data quality profile.
 
-Dataset: {rows} rows × {columns} columns
+Dataset: {rows} rows, {columns} columns
 Overall null rate: {null_rate_pct}%
 Outliers flagged: {outliers_flagged}
 
@@ -33,7 +30,7 @@ Flagged columns (abnormal only):
 Strong correlations (|r| > 0.75):
 {correlation_summary}
 
-Return ONLY this JSON object — no markdown, no explanation:
+Return ONLY this JSON object, no markdown, no explanation:
 {{
   "excellences": ["<what the data does well>", "<another strength>"],
   "major_issues": ["<most critical data quality problem>", "<second problem>"],
@@ -41,8 +38,8 @@ Return ONLY this JSON object — no markdown, no explanation:
 }}
 
 Rules:
-- excellences: 2–3 items. Be specific — mention column names or concrete properties.
-- major_issues: 2–3 items. Most critical problems first. Be concrete, name columns.
+- excellences: 2-3 items. Be specific and mention column names or concrete properties.
+- major_issues: 2-3 items. Most critical problems first. Be concrete, name columns.
 - fixes: exactly one fix per major_issue entry, in the same order. Plain English, no SQL.
 - If there are no issues, return major_issues and fixes as empty arrays.
 - If there are no strong columns, acknowledge the data is clean in excellences."""
@@ -51,10 +48,10 @@ Rules:
 def _claude_insights(summary: dict, abnormal: list, correlations: list) -> dict:
     flagged = "\n".join(
         f"  - {c['name']}: {c['issue']}" for c in abnormal
-    ) or "  None — all columns look clean."
+    ) or "  None, all columns look clean."
 
     corr = "\n".join(
-        f"  - {c['col_a']} ↔ {c['col_b']}: {c['correlation']} ({c['method']})"
+        f"  - {c['col_a']} vs {c['col_b']}: {c['correlation']} ({c['method']})"
         for c in correlations
     ) or "  None above threshold."
 
@@ -74,7 +71,6 @@ def _claude_insights(summary: dict, abnormal: list, correlations: list) -> dict:
     )
     raw = message.content[0].text.strip()
 
-    # Strip markdown fences if present
     if "```" in raw:
         parts = raw.split("```")
         raw = parts[1].lstrip("json").strip() if len(parts) > 1 else raw
@@ -90,20 +86,16 @@ def _claude_insights(summary: dict, abnormal: list, correlations: list) -> dict:
         return {"excellences": [], "major_issues": [raw], "fixes": []}
 
 
-# ── Main entry point ──────────────────────────────────────────────────────────
-
 def profile_dataframe(df: pd.DataFrame) -> dict:
     from services.schema import infer_schema
 
     schema    = infer_schema(df)
     col_types = {c["name"]: c["type"] for c in schema}
 
-    # ── Dataset-level ─────────────────────────────────────────────────────────
     total_cells = df.size
     total_nulls = int(df.isnull().sum().sum())
     null_rate   = round(total_nulls / total_cells * 100, 2) if total_cells > 0 else 0.0
 
-    # ── Per-column — only flag abnormal ──────────────────────────────────────
     abnormal    = []
     total_flags = 0
 
@@ -122,7 +114,6 @@ def profile_dataframe(df: pd.DataFrame) -> dict:
             valid = col.dropna()
             n     = len(valid)
 
-            # IQR outliers
             if n >= 4:
                 q1, q3 = float(valid.quantile(0.25)), float(valid.quantile(0.75))
                 iqr    = q3 - q1
@@ -133,7 +124,6 @@ def profile_dataframe(df: pd.DataFrame) -> dict:
                         total_flags += outlier_count
                         issues.append(f"{outlier_count} outlier{'s' if outlier_count != 1 else ''} (IQR)")
 
-            # Distribution shape — only severe flags
             if n >= 8:
                 skew = float(scipy_stats.skew(valid))
                 kurt = float(scipy_stats.kurtosis(valid))
@@ -142,12 +132,10 @@ def profile_dataframe(df: pd.DataFrame) -> dict:
                 elif kurt > 5:
                     issues.append("heavy-tailed")
 
-        # High null rate
         if col_null_pct > 5:
             issues.append(f"{col_null_pct}% null")
 
         if issues:
-            # Compute histogram only for flagged columns
             histogram = None
             if col_type == "numeric":
                 valid = col.dropna()
@@ -172,12 +160,10 @@ def profile_dataframe(df: pd.DataFrame) -> dict:
                 "histogram":     histogram,
             })
 
-    # ── Correlations ─────────────────────────────────────────────────────────
     numeric_cols = [n for n, t in col_types.items() if t == "numeric"]
     cat_cols     = [n for n, t in col_types.items() if t != "numeric"]
     strong_corr  = []
 
-    # Full Pearson matrix for the heatmap
     if len(numeric_cols) >= 2:
         raw_mat = df[numeric_cols].corr(method="pearson").round(3)
         corr_matrix = {
@@ -188,7 +174,6 @@ def profile_dataframe(df: pd.DataFrame) -> dict:
                 for row in raw_mat.values.tolist()
             ],
         }
-        # Strong pairs (|r| > 0.75) — kept for Claude insights prompt
         for i, c1 in enumerate(numeric_cols):
             for j, c2 in enumerate(numeric_cols):
                 if j <= i:
@@ -217,7 +202,6 @@ def profile_dataframe(df: pd.DataFrame) -> dict:
                 except Exception:
                     pass
 
-    # ── Missing value matrix (first 100 rows) ─────────────────────────────────
     sample  = df.head(100)
     missing = {
         "columns": list(sample.columns),
