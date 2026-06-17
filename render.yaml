@@ -1,0 +1,25 @@
+# Render deployment for the DataGrid backend (FastAPI).
+# Render reads this file automatically when you create a Blueprint from the repo.
+# Secrets (sync: false) are set in the Render dashboard, never committed.
+services:
+  - type: web
+    name: datagrid-backend
+    runtime: python
+    plan: free
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      # Pin a Python version Render supports (local dev may use a newer one).
+      - key: PYTHON_VERSION
+        value: "3.12.7"
+      # Anthropic API key. Set this in the dashboard; do NOT commit it.
+      - key: ANTHROPIC_API_KEY
+        sync: false
+      # Production frontend origin for CORS, e.g. https://datagrid.vercel.app
+      # Comma-separated values are allowed. Set after the frontend is deployed.
+      - key: FRONTEND_ORIGIN
+        sync: false
+      # Optional public-demo request cap on expensive endpoints. 0 = unlimited.
+      - key: DEMO_MAX_REQUESTS
+        value: "0"
