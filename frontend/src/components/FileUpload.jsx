@@ -10,15 +10,25 @@ export default function FileUpload({ onUploadSuccess }) {
   const [loading, setLoading]     = useState(false)
   const [loadingId, setLoadingId] = useState(null)
   const [error, setError]         = useState(null)
-  const [samples, setSamples]     = useState([])
-  const [recent, setRecent]       = useState([])
+  const [samples, setSamples]         = useState([])
+  const [recent, setRecent]           = useState([])
+  const [samplesLoading, setSamplesLoading] = useState(true)
+  const [samplesError, setSamplesError]     = useState(false)
   const inputRef = useRef(null)
 
   const ACCEPTED_EXTS = ['.csv', '.xlsx', '.xls', '.json']
 
-  useEffect(() => {
-    axios.get('/api/samples').then(r => setSamples(r.data)).catch(() => {})
+  const fetchInitialData = () => {
+    setSamplesLoading(true)
+    setSamplesError(false)
+    axios.get('/api/samples')
+      .then(r => { setSamples(r.data); setSamplesLoading(false) })
+      .catch(() => { setSamplesLoading(false); setSamplesError(true) })
     axios.get('/api/tables').then(r => setRecent(r.data)).catch(() => {})
+  }
+
+  useEffect(() => {
+    fetchInitialData()
   }, [])
 
   const handleFile = async (file) => {
@@ -236,12 +246,35 @@ export default function FileUpload({ onUploadSuccess }) {
           )}
 
           {/* Sample datasets */}
-          {samples.length > 0 && (
-            <div className="max-w-5xl mb-8">
-              <div className="flex items-center gap-2 mb-4">
-                <h2 className="text-base font-semibold text-slate-700">Try a sample dataset</h2>
-                <span className="text-xs bg-blue-100 text-blue-600 px-2 py-0.5 rounded-full font-medium">No upload needed</span>
+          <div className="max-w-5xl mb-8">
+            <div className="flex items-center gap-2 mb-4">
+              <h2 className="text-base font-semibold text-slate-700">Try a sample dataset</h2>
+              <span className="text-xs bg-blue-100 text-blue-600 px-2 py-0.5 rounded-full font-medium">No upload needed</span>
+            </div>
+
+            {samplesLoading && (
+              <div className="flex items-center gap-3 text-sm text-slate-400 py-6">
+                <div className="w-4 h-4 border-2 border-slate-300 border-t-blue-500 rounded-full animate-spin shrink-0" />
+                Connecting to backend...
               </div>
+            )}
+
+            {samplesError && (
+              <div className="flex items-center gap-3 bg-amber-50 border border-amber-200 rounded-xl px-4 py-3">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#d97706" strokeWidth={1.8} className="w-4 h-4 shrink-0">
+                  <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+                </svg>
+                <p className="text-sm text-amber-700 flex-1">The backend is still waking up. Sample datasets will appear once it's ready.</p>
+                <button
+                  onClick={fetchInitialData}
+                  className="text-xs font-medium text-amber-700 bg-amber-100 hover:bg-amber-200 px-3 py-1.5 rounded-lg transition-colors shrink-0"
+                >
+                  Try again
+                </button>
+              </div>
+            )}
+
+            {!samplesLoading && !samplesError && samples.length > 0 && (
               <div className="grid grid-cols-3 gap-4">
                 {samples.map((s) => (
                   <button
@@ -272,8 +305,8 @@ export default function FileUpload({ onUploadSuccess }) {
                   </button>
                 ))}
               </div>
-            </div>
-          )}
+            )}
+          </div>
 
         </div>
       </div>
