@@ -28,7 +28,7 @@ proxy to `localhost:8000` and the backend allows localhost origins.
    select this repo. Render reads `render.yaml` and creates the
    `datagrid-backend` web service automatically.
    - If you prefer manual setup instead of the blueprint: **New > Web Service**,
-     Root Directory `backend`, Build Command `pip install -r requirements.txt`,
+     Root Directory `backend`, Build Command `pip install -r requirements-deploy.txt`,
      Start Command `uvicorn main:app --host 0.0.0.0 --port $PORT`.
 3. Set environment variables (Render dashboard > the service > **Environment**):
    - `ANTHROPIC_API_KEY` = your Anthropic key. **Secret, never commit it.**
@@ -38,12 +38,12 @@ proxy to `localhost:8000` and the backend allows localhost origins.
    `https://datagrid-backend.onrender.com`. Check `<url>/health` returns
    `{"status":"ok"}` and `<url>/docs` loads.
 
-> Heavy dependencies: `requirements.txt` includes `sdv`, `mlflow`, and `torch`,
-> which are large and may exceed Render's free build/memory limits. If the build
-> fails on size or memory, remove the `sdv` and `mlflow` lines from
-> `backend/requirements.txt` and redeploy. The app degrades gracefully: the
-> synthetic-data copula option falls back to independent sampling, and the eval
-> harness simply will not be available.
+> Dependencies: Render builds from `backend/requirements-deploy.txt`, a slim set
+> that excludes `sdv`/`torch`/`mlflow` so it fits the free tier. The app degrades
+> gracefully: the synthetic-data copula option falls back to independent sampling,
+> and the eval harness runs without MLflow tracking. Local development still uses
+> the full `backend/requirements.txt`. (If you want the copula and MLflow in
+> production, upgrade to a paid instance and point the build at `requirements.txt`.)
 
 > Persistence: Render's free tier has an ephemeral filesystem. Uploaded tables
 > are kept in memory and queries work normally, but they are not saved across

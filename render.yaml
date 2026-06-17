@@ -7,7 +7,9 @@ services:
     runtime: python
     plan: free
     rootDir: backend
-    buildCommand: pip install -r requirements.txt
+    # Slim deps (no sdv/torch/mlflow) so the build fits the free tier. See
+    # requirements-deploy.txt for why; the app degrades gracefully without them.
+    buildCommand: pip install -r requirements-deploy.txt
     startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
     envVars:
       # Pin a Python version Render supports (local dev may use a newer one).
