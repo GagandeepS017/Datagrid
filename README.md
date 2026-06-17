@@ -2,8 +2,6 @@
 
 Upload a dataset, ask questions in plain English, and get SQL-powered answers with auto-generated charts, data profiling, and streaming insights.
 
-Built as a portfolio and thesis project (M.Sc. Big Data & AI, SRH Berlin).
-
 ## What It Does
 
 DataGrid lets non-technical users work with their data without writing SQL. You upload a file, it profiles the data automatically, and you ask questions in natural language. Claude writes the SQL, DuckDB runs it, and results come back with charts and a plain-English interpretation.
